@@ -3,8 +3,7 @@
 The public website for **Data and Code Management: From Collection to
 Application**, Master in Business Analytics, HEC Lausanne.
 
-Live at **<https://samorso.github.io/dcm-website/>**, moving to
-**<https://dcm.samorso.ch/>** once DNS is cut over — see *Custom domain* below.
+Live at **<https://dcm.samorso.ch/>**.
 
 It is a dependency-free static site: plain HTML, CSS and JavaScript, with the
 course content in one JSON file and a folder of Markdown. **There is no build
@@ -182,6 +181,7 @@ tools/check.py        content validator (`make check`)
 tools/prune.py        withholds unpublished session material at deploy time
 favicon.svg           the site mark
 404.html              turns a path-style URL into the matching hash route
+CNAME                 dcm.samorso.ch — keeps the custom domain across deploys
 .nojekyll             publish files verbatim, no Jekyll processing
 .github/workflows/deploy.yml
 ```
@@ -221,37 +221,26 @@ prune step's log lists exactly which files were withheld.
 
 ### Custom domain — `dcm.samorso.ch`
 
-The site currently publishes at `https://samorso.github.io/dcm-website/`, and
-there is deliberately **no `CNAME` file** yet: `dcm.samorso.ch` still points at
-the previous Netlify site. Adding the file before DNS moves would make GitHub
-claim a domain it cannot serve, and redirect the working `github.io` URL to the
-old site.
+Already set up. The `dcm` record is a DNS `CNAME` to `samorso.github.io.`, the
+repository's [`CNAME`](CNAME) file carries the same name, and Pages serves the
+site there; `https://samorso.github.io/dcm-website/` redirects to it.
 
-Cut over in this order:
+The `CNAME` file matters because this repository deploys through Actions: it
+travels in the published artifact and re-asserts the domain on every deploy, so
+a future run cannot quietly unset it. Keep the file and the DNS record in
+agreement — if you ever change the domain, change both. Deleting the file drops
+the site back to the `github.io` URL.
 
-1. At your DNS provider for `samorso.ch`, repoint the `dcm` record away from
-   Netlify:
+Check either side at any time:
 
-   | Type | Name | Value |
-   | --- | --- | --- |
-   | `CNAME` | `dcm` | `samorso.github.io.` |
+```bash
+dig +short dcm.samorso.ch                          # -> samorso.github.io.
+gh api /repos/samorso/dcm-website/pages -q .cname  # -> dcm.samorso.ch
+```
 
-   (A subdomain uses a `CNAME` record. Only an apex domain would need `A`
-   records to GitHub's IPs.) Confirm with `dig +short dcm.samorso.ch` — it
-   should answer `samorso.github.io.`, not `*.netlify.app`.
-
-2. Add the `CNAME` file back so the domain survives every redeploy:
-
-   ```bash
-   echo dcm.samorso.ch > CNAME
-   git add CNAME && git commit -m "Point the site at dcm.samorso.ch" && git push
-   ```
-
-3. **Settings → Pages → Custom domain** should now show `dcm.samorso.ch` and
-   verify. Tick **Enforce HTTPS** once the certificate is issued (a few minutes).
-
-Keep the DNS record and the `CNAME` file in agreement: if you ever change the
-domain, change both. To go back to the `github.io` URL, delete the file.
+One switch is still off: **Settings → Pages → Enforce HTTPS**. The certificate
+is issued and `https://` already works; ticking it redirects any `http://`
+request to `https://`.
 
 ### Taking the site down
 

@@ -30,10 +30,10 @@ jobs:
         run: python3 tools/check.py
 
       - name: Stage the site
-        # Everything except the repository's own tooling. .nojekyll is
-        # deliberately kept — it tells Pages to publish the files verbatim — as
-        # is CNAME once it is added at the domain cutover. The bare 'README.md'
-        # pattern
+        # Everything except the repository's own tooling. CNAME and .nojekyll
+        # are deliberately kept: CNAME re-asserts dcm.samorso.ch on every
+        # deploy, .nojekyll tells Pages to publish the files verbatim. The bare
+        # 'README.md' pattern
         # matches at every level, so slides/README.md — instructor notes, not
         # student material — stays out of the published site too.
         run: |
