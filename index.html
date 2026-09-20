@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Data and Code Management · Autumn 2026 · HEC Lausanne</title>
+
+  <meta name="description" content="Data and Code Management (DCM), Autumn 2026, HEC Lausanne. Moving from analysis to reliable production: code literacy, data, engineering and production, with AI assistance throughout." />
+  <meta name="color-scheme" content="light dark" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Data and Code Management · HEC Lausanne" />
+  <meta property="og:title" content="Data and Code Management — Autumn 2026" />
+  <meta property="og:description" content="Can someone else understand, check, reproduce and use your work? A semester course on moving from analysis to reliable production, with AI assistance throughout." />
+  <meta property="og:url" content="https://dcm.samorso.ch/" />
+  <meta property="og:image" content="https://dcm.samorso.ch/assets/logo-dcm.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/logo-dcm.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Resolve the appearance preference before first paint (no flash).
+       `data-theme` holds the RESOLVED theme (light|dark) that CSS reads;
+       `data-theme-pref` holds what the reader chose (light|dark|system). -->
+  <script>
+    (function () {
+      var pref = "system";
+      try { pref = localStorage.getItem("dcm-theme") || "system"; } catch (e) {}
+      if (pref !== "light" && pref !== "dark") pref = "system";
+      var dark = pref === "dark" ||
+        (pref === "system" && window.matchMedia &&
+         window.matchMedia("(prefers-color-scheme: dark)").matches);
+      var r = document.documentElement;
+      r.setAttribute("data-theme", dark ? "dark" : "light");
+      r.setAttribute("data-theme-pref", pref);
+    })();
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <a class="brand" href="#/" aria-label="Data and Code Management — home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+          <ellipse cx="12" cy="9" rx="7.5" ry="3" class="bm-db" />
+          <path d="M4.5 9v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V9" class="bm-db" />
+          <path d="M4.5 15.5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3" class="bm-db" />
+          <path d="M24 8.5 29 16l-5 7.5" class="bm-chev" />
+          <circle cx="25.5" cy="4.5" r="2.5" class="bm-node" />
+        </svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-title">Data and Code Management</span>
+        <span class="brand-sub">Autumn 2026 &middot; HEC Lausanne</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" id="siteNav" aria-label="Main">
+      <ul id="navList"><!-- built by app.js --></ul>
+    </nav>
+
+    <div class="header-tools">
+      <div class="theme-switch">
+        <button class="theme-btn" id="themeBtn" aria-label="Appearance" aria-expanded="false" aria-haspopup="true">
+          <span class="theme-dot" aria-hidden="true"></span>
+          <span class="theme-btn-label">Theme</span>
+        </button>
+        <div class="theme-pop" id="themePop" role="menu" hidden>
+          <p class="theme-pop-title">Appearance</p>
+          <button class="theme-opt" role="menuitemradio" data-theme="light">
+            <span class="theme-swatch" data-theme="light" aria-hidden="true"></span>
+            <span class="theme-opt-text"><span class="theme-opt-name">Light</span><span class="theme-opt-desc">Paper &amp; indigo</span></span>
+          </button>
+          <button class="theme-opt" role="menuitemradio" data-theme="dark">
+            <span class="theme-swatch" data-theme="dark" aria-hidden="true"></span>
+            <span class="theme-opt-text"><span class="theme-opt-name">Dark</span><span class="theme-opt-desc">Deep slate &amp; cyan</span></span>
+          </button>
+          <button class="theme-opt" role="menuitemradio" data-theme="system">
+            <span class="theme-swatch" data-theme="system" aria-hidden="true"></span>
+            <span class="theme-opt-text"><span class="theme-opt-name">System</span><span class="theme-opt-desc">Follow your device</span></span>
+          </button>
+        </div>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="siteNav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<main id="main" class="main" tabindex="-1">
+  <div id="view" class="view" aria-live="polite">
+    <noscript>
+      <div class="view-pad">
+        <h1>Data and Code Management &middot; Autumn 2026</h1>
+        <p>This site needs JavaScript to assemble its pages from the course content files.
+        The underlying material is plain text and readable without it:
+        <a href="course.json">course.json</a> holds the schedule and structure, and the
+        <code>content/</code> folder holds every page as Markdown.</p>
+      </div>
+    </noscript>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-brand"><strong>Data and Code Management</strong> &middot; From Collection to Application</p>
+    <p class="footer-meta" id="footerMeta"></p>
+    <p class="footer-note">This public site carries the syllabus, schedule and materials. Moodle remains the official space for announcements, submissions and grades.</p>
+  </div>
+</footer>
+
+<script src="assets/vendor/marked.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

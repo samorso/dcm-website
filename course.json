@@ -1,0 +1,326 @@
+{
+  "_README": "Single source of truth for the site's structured content. Prose pages live in content/*.md; per-lecture notes live in content/lectures/<id>.md. Editing this file is the normal weekly maintenance task — see README.md.",
+
+  "course": {
+    "code": "DCM",
+    "title": "Data and Code Management",
+    "subtitle": "From Collection to Application",
+    "term": "Autumn 2026",
+    "programme": "Master in Business Analytics",
+    "institution": "HEC Lausanne · University of Lausanne",
+    "question": "Can someone else understand, check, reproduce and use your work?",
+    "lede": "You already know how to analyse. DCM asks the next question: whether your work survives contact with another person, another machine and another week. Code production is increasingly AI-assisted — code literacy and engineering judgement are what make the result trustworthy.",
+    "progression": "analysis → reliable production"
+  },
+
+  "logistics": {
+    "day": "Thursday",
+    "time": "09:15 – 11:00",
+    "format": "2 × 45-minute periods",
+    "room": "Anthropole / 3032",
+    "firstSession": "24 September 2026",
+    "lastSession": "17 December 2026"
+  },
+
+  "instructor": {
+    "name": "Samuel Orso",
+    "role": "Instructor",
+    "email": "Samuel.Orso@unil.ch",
+    "office": "Anthropole / 3090.1",
+    "officeHours": "By appointment",
+    "github": "https://github.com/samorso",
+    "website": "https://www.samorso.ch/"
+  },
+
+  "moodle": {
+    "note": "Moodle remains the official UNIL space for announcements, submissions, grades and the course forum. This public site carries the syllabus, schedule, slides and materials.",
+    "url": ""
+  },
+
+  "pillars": [
+    {
+      "n": "01",
+      "id": "code",
+      "name": "Code literacy",
+      "purpose": "Read and reason",
+      "detail": "Python / R · debugging",
+      "blurb": "Read, explain, modify and debug code instead of only running it. Data structures, tables, control flow and functions — the literacy that lets you judge what an agent hands back.",
+      "icon": "code"
+    },
+    {
+      "n": "02",
+      "id": "data",
+      "name": "Data",
+      "purpose": "Know what it means",
+      "detail": "SQL · APIs · validation",
+      "blurb": "Relational data, SQL, joins and aggregation, JSON and web data. Trace provenance; validate keys, units, missing values and totals. Getting the data is only the start.",
+      "icon": "data"
+    },
+    {
+      "n": "03",
+      "id": "engineering",
+      "name": "Engineering",
+      "purpose": "Build reliably",
+      "detail": "Structure · tests · Git",
+      "blurb": "Project structure, modular code, documentation, refactoring and tests, versioned and reviewed through Git and GitHub. More generated code makes review and structure more important, not less.",
+      "icon": "engineering"
+    },
+    {
+      "n": "04",
+      "id": "production",
+      "name": "Production",
+      "purpose": "Make it usable",
+      "detail": "Environments · apps",
+      "blurb": "Dependencies, reproducible environments and Docker, and a small data application someone else can actually open and use. From a working script to a project you can hand over.",
+      "icon": "production"
+    }
+  ],
+
+  "ai": {
+    "label": "AI throughout",
+    "tagline": "Support at every stage — not a fifth block",
+    "actions": ["explain", "debug", "generate", "refactor", "test", "review", "build"],
+    "growth": [
+      { "phase": "Early", "kicker": "Build literacy", "title": "Explain & debug", "text": "Predict, write and explain short code before delegating any of it." },
+      { "phase": "Progressively", "kicker": "Extend", "title": "Generate & refactor", "text": "Specify bounded changes, then inspect the diff before you run it." },
+      { "phase": "Later", "kicker": "Supervise", "title": "Test, review & build", "text": "Coordinate larger tasks and carry the evidence that the result is right." }
+    ]
+  },
+
+  "workflow": ["Understand", "Specify", "Inspect", "Modify", "Run", "Verify"],
+
+  "journey": [
+    { "stage": "01", "name": "Notebook", "quote": "My model works.", "text": "An analysis that runs on your machine, in your session, with your assumptions." },
+    { "stage": "02", "name": "Workflow", "quote": "It runs again, reliably.", "text": "Validated inputs, reusable steps, tests and checks, and a fixed environment." },
+    { "stage": "03", "name": "Application", "quote": "My colleague can use it.", "text": "A reproducible project and a small product another person can open and trust." }
+  ],
+
+  "outcomes": [
+    { "pillar": "code", "title": "Code you can explain", "text": "Read, modify and debug Python/R inside a reproducible project." },
+    { "pillar": "data", "title": "Data you can trust", "text": "Work with files, databases and APIs, and validate every transformation." },
+    { "pillar": "engineering", "title": "A project others can maintain", "text": "Structure, document and test code; collaborate through Git." },
+    { "pillar": "production", "title": "A result others can use", "text": "Reproduce the environment and deliver a small application." }
+  ],
+
+  "assessment": [
+    {
+      "id": "hw1",
+      "label": "Homework 1",
+      "name": "Human handover",
+      "weight": 25,
+      "mode": "Individual",
+      "when": "After the early block",
+      "question": "Can another person understand and reproduce your work?",
+      "summary": "Code literacy and reproducibility: explain and debug code, structure a project, show tests, Git history and evidence of a fresh rerun.",
+      "covers": ["code", "engineering"]
+    },
+    {
+      "id": "hw2",
+      "label": "Homework 2",
+      "name": "Technical handover",
+      "weight": 25,
+      "mode": "Individual",
+      "when": "After the later technical blocks",
+      "question": "Can the workflow run reliably outside your own setup?",
+      "summary": "Data through to production: SQL and data validation, modular and testable code, environments and Docker where appropriate.",
+      "covers": ["data", "engineering", "production"]
+    },
+    {
+      "id": "project",
+      "label": "Group project",
+      "name": "User handover",
+      "weight": 50,
+      "mode": "Group",
+      "when": "26 November – 17 December",
+      "question": "Can a team deliver something another person can actually use?",
+      "summary": "Full integration of all four stages into a usable data product, with checked results, defended choices and AI-assisted development you can account for.",
+      "covers": ["code", "data", "engineering", "production"]
+    }
+  ],
+
+  "evidence": [
+    { "n": "01", "title": "Explain", "text": "The code, the data's meaning, your assumptions and the limits." },
+    { "n": "02", "title": "Validate", "text": "Tests, checks and independent evidence — not just “it ran”." },
+    { "n": "03", "title": "Reproduce", "text": "Inputs, instructions, dependencies and a fresh run that still works." },
+    { "n": "04", "title": "Defend", "text": "The choices you made, your contribution and the changes you reviewed." },
+    { "n": "05", "title": "Account for AI", "text": "Appropriate assistance, independent verification and disclosure." }
+  ],
+
+  "tools": [
+    { "name": "VS Code", "role": "Workspace: files, editor, terminal and source control.", "url": "https://code.visualstudio.com/" },
+    { "name": "Python", "role": "Default live language for data work and checks.", "url": "https://www.python.org/" },
+    { "name": "R", "role": "Supported throughout, and a natural choice for many projects.", "url": "https://www.r-project.org/" },
+    { "name": "Git & GitHub", "role": "Change history, review and collaboration.", "url": "https://github.com/" },
+    { "name": "AI coding agent", "role": "Explain code and implement scoped tasks under your supervision.", "url": "" },
+    { "name": "SQL", "role": "Query, join and aggregate relational data.", "url": "" },
+    { "name": "Google Colab", "role": "Notebook environment and setup fallback.", "url": "https://colab.research.google.com/" },
+    { "name": "Docker", "role": "Later — reproducible execution environments.", "url": "https://www.docker.com/" },
+    { "name": "Streamlit / Shiny", "role": "Later — a small, usable data application.", "url": "" }
+  ],
+
+  "groups": [
+    { "id": "opening", "name": "Opening", "pillar": null },
+    { "id": "code", "name": "01 · Code literacy", "pillar": "code" },
+    { "id": "ai", "name": "AI throughout", "pillar": "ai" },
+    { "id": "data", "name": "02 · Data", "pillar": "data" },
+    { "id": "engineering", "name": "03 · Engineering", "pillar": "engineering" },
+    { "id": "production", "name": "04 · Production", "pillar": "production" },
+    { "id": "project", "name": "Group project", "pillar": null }
+  ],
+
+  "schedule": [
+    {
+      "id": "workshops",
+      "date": "2026-09-17",
+      "display": "17 Sep",
+      "title": "Special workshops",
+      "group": "opening",
+      "kind": "no-class",
+      "summary": "No normal DCM class. Thesis and career workshops run in this slot.",
+      "page": false
+    },
+    {
+      "id": "introduction",
+      "date": "2026-09-24",
+      "display": "24 Sep",
+      "title": "Introduction: DCM in 2026",
+      "group": "opening",
+      "kind": "lecture",
+      "summary": "What the course is for, the four-stage map, AI throughout, assessment, and a first look at the inspect → specify → verify workflow with a coding agent.",
+      "slides": "slides/lecture00-introduction.pdf",
+      "prep": "Complete the minimum setup checks before class — see Setup.",
+      "page": true
+    },
+    {
+      "id": "reproducibility-git",
+      "date": "2026-10-01",
+      "display": "1 Oct",
+      "title": "Reproducibility, projects, Git/GitHub",
+      "group": "code",
+      "kind": "lecture",
+      "summary": "Project structure, immutable raw data, relative paths and READMEs; Git basics — status, diff, staged changes, commits — and a reviewed change you can explain.",
+      "slides": "slides/lecture01-reproducibility-git.pdf",
+      "page": true
+    },
+    {
+      "id": "code-literacy-1",
+      "date": "2026-10-08",
+      "display": "8 Oct",
+      "title": "Code literacy I",
+      "group": "code",
+      "kind": "lecture",
+      "summary": "Types, missing values, vectors and tables, indexing and logical operations. Predict what code does before you run it.",
+      "page": true
+    },
+    {
+      "id": "code-literacy-2",
+      "date": "2026-10-15",
+      "display": "15 Oct",
+      "title": "Code literacy II",
+      "group": "code",
+      "kind": "lecture",
+      "summary": "Control flow, functions, input checks, errors and warnings — and reading, modifying and debugging code you did not write.",
+      "page": true
+    },
+    {
+      "id": "responsible-ai",
+      "date": "2026-10-22",
+      "display": "22 Oct",
+      "title": "Responsible AI at UNIL",
+      "group": "ai",
+      "kind": "async",
+      "summary": "Asynchronous session on institutional guidance for AI use, including UNIL resources such as AI_GO. No class meeting in the room.",
+      "page": true
+    },
+    {
+      "id": "sql",
+      "date": "2026-10-29",
+      "display": "29 Oct",
+      "title": "SQL & relational data",
+      "group": "data",
+      "kind": "lecture",
+      "summary": "Relational thinking, SELECT, joins and aggregation, and calling SQL from Python/R — plus checking that a query means what you think it means.",
+      "page": true
+    },
+    {
+      "id": "apis-json",
+      "date": "2026-11-05",
+      "display": "5 Nov",
+      "title": "APIs, JSON & web data",
+      "group": "data",
+      "kind": "lecture",
+      "summary": "Requesting data from APIs, reading JSON, handling keys and rate limits, and validating external data before you build on it.",
+      "page": true
+    },
+    {
+      "id": "software-engineering",
+      "date": "2026-11-12",
+      "display": "12 Nov",
+      "title": "Software engineering with AI",
+      "group": "engineering",
+      "kind": "lecture",
+      "summary": "Functions and modules, documentation, refactoring and tests — and how to specify, review and test work produced with an agent.",
+      "page": true
+    },
+    {
+      "id": "environments-docker",
+      "date": "2026-11-19",
+      "display": "19 Nov",
+      "title": "Environments & Docker",
+      "group": "production",
+      "kind": "lecture",
+      "summary": "Dependencies and environments, why “works on my machine” is not a result, and a first reproducible container.",
+      "page": true
+    },
+    {
+      "id": "applications",
+      "date": "2026-11-26",
+      "display": "26 Nov",
+      "title": "Applications + project kickoff",
+      "group": "production",
+      "kind": "lecture",
+      "summary": "Turning a workflow into a small application someone else can use, and the launch of the group project.",
+      "page": true
+    },
+    {
+      "id": "project-work-1",
+      "date": "2026-12-03",
+      "display": "3 Dec",
+      "title": "Project work I",
+      "group": "project",
+      "kind": "workshop",
+      "summary": "Supervised project work: scope, data, structure and a first end-to-end path.",
+      "page": true
+    },
+    {
+      "id": "project-work-2",
+      "date": "2026-12-10",
+      "display": "10 Dec",
+      "title": "Project work II + review",
+      "group": "project",
+      "kind": "workshop",
+      "summary": "Supervised project work and a review round: does the project run for someone else?",
+      "page": true
+    },
+    {
+      "id": "presentations",
+      "date": "2026-12-17",
+      "display": "17 Dec",
+      "title": "Project presentations",
+      "group": "project",
+      "kind": "workshop",
+      "summary": "Final presentations: show the product, the checks behind it and the choices you defend.",
+      "page": true
+    }
+  ],
+
+  "nav": [
+    { "route": "",            "label": "Home" },
+    { "route": "course",      "label": "Course" },
+    { "route": "schedule",    "label": "Schedule" },
+    { "route": "assignments", "label": "Assignments" },
+    { "route": "project",     "label": "Project" },
+    { "route": "ai",          "label": "AI use" },
+    { "route": "setup",       "label": "Setup" }
+  ]
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redirecting… · Data and Code Management</title>
+  <meta name="robots" content="noindex" />
+  <script>
+    /* GitHub Pages serves this file for any path that is not a real file.
+     * The site itself is hash-routed, so a 404 only happens when someone types
+     * or follows a path-style URL such as /schedule. Translate it into the
+     * equivalent hash route and send them to the right page.
+     *
+     * The site root is "/" on a custom domain (dcm.samorso.ch) and
+     * "/<repo>/" on a github.io project page — detect which. */
+    (function () {
+      var path = location.pathname;
+      var base = "/";
+      if (/\.github\.io$/i.test(location.hostname)) {
+        var seg = path.split("/").filter(Boolean)[0];
+        if (seg) base = "/" + seg + "/";
+      }
+      var rest = path.slice(base.length).replace(/^\/+|\/+$/g, "");
+      var target = location.origin + base + (rest ? "#/" + rest : "") + location.search;
+      location.replace(target);
+    })();
+  </script>
+  <style>
+    body { font: 16px/1.6 system-ui, sans-serif; margin: 0; padding: 12vh 24px;
+           background: #f6f7f9; color: #16242a; }
+    main { max-width: 34rem; margin: 0 auto; }
+    a { color: #373895; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Taking you to the course site…</h1>
+    <p>If nothing happens, go to <a href="/">the Data and Code Management home page</a>.</p>
+  </main>
+</body>
+</html>

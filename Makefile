@@ -1,0 +1,27 @@
+# Data and Code Management — Autumn 2026
+#
+# There is no build step: the repository IS the published site. These targets
+# are conveniences, nothing more. Everything needs only Python 3 and Git.
+
+PORT ?= 8000
+SLIDES_SRC ?= ../slides-2026/build
+
+.DEFAULT_GOAL := help
+
+.PHONY: help serve check slides
+
+help:                ## Show this help
+	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
+	 | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[1m%-10s\033[0m %s\n", $$1, $$2}'
+
+serve:               ## Preview locally at http://localhost:$(PORT)
+	@echo "Serving on http://localhost:$(PORT)  (Ctrl-C to stop)"
+	@python3 -m http.server $(PORT)
+
+check:               ## Validate course.json and list content files it expects
+	@python3 tools/check.py
+
+slides:              ## Copy released lecture PDFs from $(SLIDES_SRC) into slides/
+	@test -d "$(SLIDES_SRC)" || { echo "No such directory: $(SLIDES_SRC)"; exit 1; }
+	@cp -v "$(SLIDES_SRC)"/*.pdf slides/ 2>/dev/null || echo "No PDFs found in $(SLIDES_SRC)"
+	@echo "Now point the session's \"slides\" field in course.json at the new file."

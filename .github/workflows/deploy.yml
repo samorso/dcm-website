@@ -1,0 +1,66 @@
+name: Deploy to GitHub Pages
+
+# The repository IS the site: there is no build step, no Node, no bundler.
+# This workflow validates the content, stages the publishable files into
+# _site/, and hands that folder to GitHub Pages.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a newer push supersedes an in-flight run.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Validate course.json and content
+        run: python3 tools/check.py
+
+      - name: Stage the site
+        # Everything except the repository's own tooling. CNAME and .nojekyll
+        # are deliberately kept: CNAME binds the custom domain, .nojekyll tells
+        # Pages to publish the files verbatim.
+        run: |
+          mkdir -p _site
+          rsync -a ./ _site/ \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '_site/' \
+            --exclude 'tools/' \
+            --exclude 'Makefile' \
+            --exclude 'README.md' \
+            --exclude '.gitignore'
+          echo "Staged files:"
+          find _site -maxdepth 2 -printf '%P\n' | sort
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

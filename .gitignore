@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local preview / tooling
+.cache/
+node_modules/
+__pycache__/
+.venv/
+
+# Nothing here is generated: the repository *is* the published site.
