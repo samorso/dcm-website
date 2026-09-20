@@ -3,7 +3,8 @@
 The public website for **Data and Code Management: From Collection to
 Application**, Master in Business Analytics, HEC Lausanne.
 
-Live at **<https://dcm.samorso.ch/>**.
+Live at **<https://samorso.github.io/dcm-website/>**, moving to
+**<https://dcm.samorso.ch/>** once DNS is cut over — see *Custom domain* below.
 
 It is a dependency-free static site: plain HTML, CSS and JavaScript, with the
 course content in one JSON file and a folder of Markdown. **There is no build
@@ -55,12 +56,18 @@ session have not been published yet" and offers no material.
 That is not only a UI state. `tools/prune.py` deletes the unpublished sessions'
 notes and files from the staged copy during deployment, so a student who types
 `content/lectures/sql.md` or a slide PDF's URL gets a 404 rather than next
-month's material. The repository keeps every file; only the published site is
-pruned.
+month's material.
+
+**This repository is public**, which the prune step cannot help with: a file
+committed here is readable on github.com even when the website withholds it, and
+public git history is permanent. So unreleased material is kept *out of the
+repository* as well — each unreleased session's notes and deck are listed in
+`.gitignore` and stay untracked on your machine until its week. The two
+mechanisms cover different doors, and `prune.py` stays as a second line of
+defence in case one is committed early.
 
 Local preview applies the same gate, so what you see is what students see. To
-check an unpublished note before its week, read the Markdown in your editor or
-add the id to `published` temporarily — just do not commit that.
+check an unreleased note before its week, read the Markdown in your editor.
 
 `make check` prints what is currently open, so a push never publishes more
 than you meant:
@@ -78,12 +85,18 @@ Almost all maintenance is one of these four things.
 
 ### 1. Open a session to students
 
-Add its id to `published` in `course.json`, commit, push. That is the whole
-step — Pages redeploys and the session's material appears.
+Two edits, committed together:
+
+1. delete that session's lines from `.gitignore`, which releases its notes and
+   deck into the repository;
+2. add its id to `published` in `course.json`.
 
 ```json
 "published": ["introduction", "reproducibility-git"]
 ```
+
+Then `make check`, commit, push. Pages redeploys and the session's material
+appears. `make check` will tell you if you did only half of it.
 
 ### 2. Publish a deck or a link for a session
 
@@ -169,7 +182,6 @@ tools/check.py        content validator (`make check`)
 tools/prune.py        withholds unpublished session material at deploy time
 favicon.svg           the site mark
 404.html              turns a path-style URL into the matching hash route
-CNAME                 dcm.samorso.ch
 .nojekyll             publish files verbatim, no Jekyll processing
 .github/workflows/deploy.yml
 ```
@@ -209,22 +221,37 @@ prune step's log lists exactly which files were withheld.
 
 ### Custom domain — `dcm.samorso.ch`
 
-1. At your DNS provider for `samorso.ch`, add a `CNAME` record:
+The site currently publishes at `https://samorso.github.io/dcm-website/`, and
+there is deliberately **no `CNAME` file** yet: `dcm.samorso.ch` still points at
+the previous Netlify site. Adding the file before DNS moves would make GitHub
+claim a domain it cannot serve, and redirect the working `github.io` URL to the
+old site.
+
+Cut over in this order:
+
+1. At your DNS provider for `samorso.ch`, repoint the `dcm` record away from
+   Netlify:
 
    | Type | Name | Value |
    | --- | --- | --- |
-   | `CNAME` | `dcm` | `<your-github-username>.github.io.` |
+   | `CNAME` | `dcm` | `samorso.github.io.` |
 
    (A subdomain uses a `CNAME` record. Only an apex domain would need `A`
-   records to GitHub's IPs.)
+   records to GitHub's IPs.) Confirm with `dig +short dcm.samorso.ch` — it
+   should answer `samorso.github.io.`, not `*.netlify.app`.
 
-2. **Settings → Pages → Custom domain**: enter `dcm.samorso.ch` and save.
-   GitHub verifies the DNS record; this can take a few minutes.
-3. Tick **Enforce HTTPS** once the certificate has been issued.
+2. Add the `CNAME` file back so the domain survives every redeploy:
 
-The [`CNAME`](CNAME) file in this repository carries the same value, so the
-custom domain survives a redeploy. Keep the two in agreement: if you ever change
-the domain, change both.
+   ```bash
+   echo dcm.samorso.ch > CNAME
+   git add CNAME && git commit -m "Point the site at dcm.samorso.ch" && git push
+   ```
+
+3. **Settings → Pages → Custom domain** should now show `dcm.samorso.ch` and
+   verify. Tick **Enforce HTTPS** once the certificate is issued (a few minutes).
+
+Keep the DNS record and the `CNAME` file in agreement: if you ever change the
+domain, change both. To go back to the `github.io` URL, delete the file.
 
 ### Taking the site down
 

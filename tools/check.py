@@ -10,6 +10,8 @@ anything — it only reports problems a browser would show you later:
   * every content page the navigation points at exists
   * every id in `published` names a real session
   * lecture notes exist for the PUBLISHED sessions (a warning only)
+  * a released session's files are not still held back by .gitignore, and an
+    unreleased session's files are not sitting tracked in this public repo
 
 It also prints which sessions are currently open to students, so a push never
 publishes more (or less) than you meant. tools/prune.py enforces that list at
@@ -127,6 +129,37 @@ def main() -> int:
             continue
         if note.stem not in seen:
             warn(f"content/lectures/{note.name} has no matching session in course.json")
+
+    # --- release consistency ------------------------------------------------
+    # Opening a session takes two edits — drop its .gitignore lines and add its
+    # id to `published`. Doing only one is the easy mistake, so name it here.
+    ignored = set()
+    gitignore = ROOT / ".gitignore"
+    if gitignore.exists():
+        for line in gitignore.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and not line.startswith("!"):
+                ignored.add(line.lstrip("/").rstrip("/"))
+
+    for row in course["schedule"]:
+        sid = row["id"]
+        paths = [f"content/lectures/{sid}.md"]
+        if row.get("slides"):
+            paths.append(row["slides"])
+        for mat in row.get("materials", []):
+            url = mat.get("url", "")
+            if url and not url.startswith(("http://", "https://", "#", "mailto:")):
+                paths.append(url)
+
+        for rel in paths:
+            held = rel in ignored
+            exists = (ROOT / rel).exists()
+            if sid in published and held:
+                err(f"session {sid!r} is published but {rel} is still in "
+                    f".gitignore — it will never reach the site")
+            if sid not in published and exists and not held:
+                warn(f"session {sid!r} is not published, but {rel} is tracked "
+                     f"here — readable in this public repository")
 
     open_now = [r["title"] for r in course["schedule"] if r["id"] in published]
     print("Open to students: " + (", ".join(open_now) or "nothing"))
