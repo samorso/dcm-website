@@ -45,6 +45,7 @@ jobs:
             --exclude 'tools/' \
             --exclude 'Makefile' \
             --exclude 'README.md' \
+            --exclude 'MAINTENANCE.md' \
             --exclude '.gitignore'
           echo "Staged files:"
           find _site -maxdepth 2 -printf '%P\n' | sort
