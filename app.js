@@ -99,6 +99,14 @@ function pillarName(pillarId) {
   return p ? p.name : pillarId;
 }
 
+/** A session's material is published only when its id is listed in
+ *  course.json `published`. Everything else renders the "not published yet"
+ *  state — and tools/prune.py keeps those files out of the deployed site, so
+ *  a direct URL cannot reach them either. */
+function isPublished(id) {
+  return Array.isArray(COURSE.published) && COURSE.published.includes(id);
+}
+
 /** Today at local midnight — used to mark past / upcoming sessions. */
 function today() {
   const d = new Date();
@@ -512,7 +520,7 @@ function viewSchedule(view) {
       if (r.kind === "async") tags.append(el("span", { class: "tag tag-magenta", text: "Asynchronous" }));
       if (r.kind === "no-class") tags.append(el("span", { class: "tag", text: "No class" }));
       if (r.kind === "workshop") tags.append(el("span", { class: "tag tag-cyan", text: "Project work" }));
-      if (r.slides) tags.append(el("span", { class: "tag", text: "Slides" }));
+      if (r.slides && isPublished(r.id)) tags.append(el("span", { class: "tag", text: "Slides" }));
 
       const body = [
         el("time", { class: "sched-date", datetime: r.date, text: r.display }),
@@ -564,13 +572,14 @@ async function viewLecture(view, id) {
   ));
 
   /* materials + preparation ------------------------------------------- */
+  const published = isPublished(r.id);
   const mats = el("ul", { class: "materials" });
-  if (r.slides) {
+  if (published && r.slides) {
     mats.append(el("li", {}, el("a", { href: r.slides, target: "_blank", rel: "noopener" },
       el("span", { class: "mat-icon", html: ICON_PDF }), "Slides",
       el("span", { class: "mat-kind", text: "pdf" }))));
   }
-  (r.materials || []).forEach((m) => {
+  (published ? r.materials || [] : []).forEach((m) => {
     mats.append(el("li", {}, el("a", { href: m.url, target: /^https?:/.test(m.url) ? "_blank" : null, rel: "noopener" },
       el("span", { class: "mat-icon", html: /\.pdf$/i.test(m.url) ? ICON_PDF : ICON_LINK }), m.label,
       el("span", { class: "mat-kind", text: m.kind || "link" }))));
@@ -604,8 +613,17 @@ async function viewLecture(view, id) {
 
   document.title = `${r.title} · ${COURSE.course.title}`;
 
-  /* notes are optional: a missing file is a normal state, not an error */
+  /* Notes: withheld until the session is published, and optional after that —
+     a missing file is a normal state, not an error. */
   const body = $("#lectureBody");
+  if (!published) {
+    body.innerHTML = "";
+    body.append(el("p", {
+      class: "materials-empty",
+      text: "Notes for this session have not been published yet.",
+    }));
+    return;
+  }
   try {
     const { body: md } = await loadMarkdown(`content/lectures/${id}.md`);
     renderMarkdownInto(body, md);

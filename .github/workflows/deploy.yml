@@ -32,7 +32,9 @@ jobs:
       - name: Stage the site
         # Everything except the repository's own tooling. CNAME and .nojekyll
         # are deliberately kept: CNAME binds the custom domain, .nojekyll tells
-        # Pages to publish the files verbatim.
+        # Pages to publish the files verbatim. The bare 'README.md' pattern
+        # matches at every level, so slides/README.md — instructor notes, not
+        # student material — stays out of the published site too.
         run: |
           mkdir -p _site
           rsync -a ./ _site/ \
@@ -45,6 +47,13 @@ jobs:
             --exclude '.gitignore'
           echo "Staged files:"
           find _site -maxdepth 2 -printf '%P\n' | sort
+
+      - name: Withhold unpublished session material
+        # course.json `published` lists the sessions students may reach. The
+        # site hides the rest, but hiding is not withholding: this deletes
+        # their notes and files from the staged copy so no direct URL reaches
+        # them. It touches _site/ only; the repository keeps every file.
+        run: python3 tools/prune.py _site
 
       - name: Configure Pages
         uses: actions/configure-pages@v6

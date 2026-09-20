@@ -42,11 +42,50 @@ make check          # validates course.json, dates, links to local files
 
 ---
 
+## What students can see
+
+Students reach a session's slides, links and notes **only** when its id is
+listed in `published` in `course.json`. Everything else shows "Notes for this
+session have not been published yet" and offers no material.
+
+```json
+"published": ["introduction"]
+```
+
+That is not only a UI state. `tools/prune.py` deletes the unpublished sessions'
+notes and files from the staged copy during deployment, so a student who types
+`content/lectures/sql.md` or a slide PDF's URL gets a 404 rather than next
+month's material. The repository keeps every file; only the published site is
+pruned.
+
+Local preview applies the same gate, so what you see is what students see. To
+check an unpublished note before its week, read the Markdown in your editor or
+add the id to `published` temporarily — just do not commit that.
+
+`make check` prints what is currently open, so a push never publishes more
+than you meant:
+
+```
+Open to students: Introduction: DCM in 2026
+Withheld by tools/prune.py at deploy time: 13 session(s)
+```
+
+---
+
 ## Updating the site each week
 
-Almost all maintenance is one of these three things.
+Almost all maintenance is one of these four things.
 
-### 1. Publish a deck or a link for a session
+### 1. Open a session to students
+
+Add its id to `published` in `course.json`, commit, push. That is the whole
+step — Pages redeploys and the session's material appears.
+
+```json
+"published": ["introduction", "reproducibility-git"]
+```
+
+### 2. Publish a deck or a link for a session
 
 Copy the PDF into `slides/` (see [`slides/README.md`](slides/README.md)), then
 point the session at it in `course.json`:
@@ -69,16 +108,17 @@ point the session at it in `course.json`:
 }
 ```
 
-### 2. Write or edit the notes for a session
+### 3. Write or edit the notes for a session
 
 Create `content/lectures/<id>.md`, where `<id>` is the session's `id` above.
 Start from [`content/lectures/_template.md`](content/lectures/_template.md).
 Plain Markdown; no front matter needed for lecture notes.
 
 A session with no notes file is fine — its page shows the summary, the material
-list and "Notes for this session have not been published yet."
+list and "Notes for this session have not been published yet." An unpublished
+session shows that same state whether or not the file exists.
 
-### 3. Edit a standing page
+### 4. Edit a standing page
 
 The prose pages are `content/course.md`, `content/assignments.md`,
 `content/project.md`, `content/ai.md` and `content/setup.md`. Each begins with a
@@ -114,7 +154,8 @@ index.html            page shell: header, nav, theme switch, footer
 app.js                router, renderers, Markdown pipeline (~800 lines, commented)
 style.css             design tokens + every component; light and dark themes
 course.json           ← the file you edit most: identity, pillars, schedule,
-                        assessment, tools, navigation
+                        assessment, tools, navigation, and `published`
+                        (which sessions students can reach)
 content/
   course.md  assignments.md  project.md  ai.md  setup.md
   lectures/
@@ -125,6 +166,7 @@ assets/
   vendor/marked.min.js  Markdown parser, vendored — no CDN at runtime
 slides/               published PDFs, served at /slides/<file>
 tools/check.py        content validator (`make check`)
+tools/prune.py        withholds unpublished session material at deploy time
 favicon.svg           the site mark
 404.html              turns a path-style URL into the matching hash route
 CNAME                 dcm.samorso.ch
@@ -154,8 +196,10 @@ matching hash route, on both a custom domain and a `github.io` project page.
 Pushing to `main` publishes the site through
 [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). The workflow
 validates the content with `tools/check.py`, stages everything except the
-repository's own tooling into `_site/`, and hands that to Pages. A failing
-validation fails the deploy instead of publishing a broken schedule.
+repository's own tooling into `_site/`, removes the unpublished sessions'
+material with `tools/prune.py`, and hands that folder to Pages. A failing
+validation fails the deploy instead of publishing a broken schedule, and the
+prune step's log lists exactly which files were withheld.
 
 ### One-time setup on GitHub
 

@@ -18,7 +18,7 @@ serve:               ## Preview locally at http://localhost:$(PORT)
 	@echo "Serving on http://localhost:$(PORT)  (Ctrl-C to stop)"
 	@python3 -m http.server $(PORT)
 
-check:               ## Validate course.json and list content files it expects
+check:               ## Validate course.json and show what students can see
 	@python3 tools/check.py
 
 slides:              ## Copy released lecture PDFs from $(SLIDES_SRC) into slides/

@@ -32,6 +32,9 @@
     "website": "https://www.samorso.ch/"
   },
 
+  "_README_published": "Which sessions' material students can reach. A session's slides, links and notes appear ONLY if its id is listed in `published`; every other session shows \"not published yet\". tools/prune.py also keeps unlisted files out of the deployed site, so a direct URL cannot reach them either. To open a session: add its id here, commit, push.",
+  "published": ["introduction"],
+
   "moodle": {
     "note": "Moodle remains the official UNIL space for announcements, submissions, grades and the course forum. This public site carries the syllabus, schedule, slides and materials.",
     "url": ""

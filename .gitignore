@@ -14,3 +14,15 @@ __pycache__/
 .venv/
 
 # Nothing here is generated: the repository *is* the published site.
+
+# --- Material not yet released to students -------------------------------
+# This repository is PUBLIC, so a file committed here is readable even when
+# course.json `published` withholds it from the website. Unreleased sessions'
+# notes and decks therefore stay untracked until their week.
+#
+# To release a session: delete its lines below, add the session id to
+# `published` in course.json, then commit both together.
+
+content/lectures/reproducibility-git.md
+content/lectures/responsible-ai.md
+slides/lecture01-reproducibility-git.pdf

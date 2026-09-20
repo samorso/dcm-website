@@ -8,7 +8,12 @@ anything — it only reports problems a browser would show you later:
   * every session id is unique and every date is real and in order
   * every referenced slide deck / material file actually exists
   * every content page the navigation points at exists
-  * lecture notes exist for the sessions that claim a page (a warning only)
+  * every id in `published` names a real session
+  * lecture notes exist for the PUBLISHED sessions (a warning only)
+
+It also prints which sessions are currently open to students, so a push never
+publishes more (or less) than you meant. tools/prune.py enforces that list at
+deploy time.
 """
 
 from __future__ import annotations
@@ -39,7 +44,7 @@ def main() -> int:
         return 1
 
     for key in ("course", "logistics", "instructor", "pillars", "ai",
-                "assessment", "groups", "schedule", "nav"):
+                "assessment", "groups", "schedule", "nav", "published"):
         if key not in course:
             err(f"course.json is missing the top-level key {key!r}")
     if errors:
@@ -58,6 +63,9 @@ def main() -> int:
     # --- groups -------------------------------------------------------------
     group_ids = {g["id"] for g in course["groups"]}
     pillar_ids = {p["id"] for p in course["pillars"]}
+
+    # --- what students can reach --------------------------------------------
+    published = set(course["published"])
 
     # --- schedule -----------------------------------------------------------
     seen: set[str] = set()
@@ -91,8 +99,13 @@ def main() -> int:
                     err(f"session {sid!r}: material {url!r} does not exist")
 
         note = ROOT / "content" / "lectures" / f"{sid}.md"
-        if row.get("page") and not note.exists():
-            warn(f"session {sid!r} has no notes yet (content/lectures/{sid}.md)")
+        if row.get("page") and sid in published and not note.exists():
+            warn(f"published session {sid!r} has no notes "
+                 f"(content/lectures/{sid}.md)")
+
+    unknown = published - seen
+    if unknown:
+        err(f"`published` names sessions that do not exist: {sorted(unknown)}")
 
     # --- assessment ---------------------------------------------------------
     total = sum(a["weight"] for a in course["assessment"])
@@ -114,6 +127,11 @@ def main() -> int:
             continue
         if note.stem not in seen:
             warn(f"content/lectures/{note.name} has no matching session in course.json")
+
+    open_now = [r["title"] for r in course["schedule"] if r["id"] in published]
+    print("Open to students: " + (", ".join(open_now) or "nothing"))
+    print(f"Withheld by tools/prune.py at deploy time: "
+          f"{len([r for r in course['schedule'] if r['id'] not in published])} session(s)")
 
     report()
     return 1 if errors else 0

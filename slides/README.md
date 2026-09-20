@@ -27,10 +27,14 @@ PDF decks published with the site. Each file here is served at
    { "id": "code-literacy-1", "...": "...", "slides": "slides/lecture02-code-literacy.pdf" }
    ```
 
-4. `make check` (confirms the file exists), then commit and push.
+4. Make sure the session's id is in `published` in `course.json`, or the deck
+   stays withheld — see *What students can see* in the top-level README.
+5. `make check` (confirms the file exists), then commit and push.
 
-A session with no `slides` field simply shows "Slides and material are published
-here after the session" — that is the normal state before a deck is ready.
+A session with no `slides` field, or one that is not yet published, shows
+"Slides and material are published here after the session" — the normal state
+before a deck is ready. A withheld PDF is deleted from the published site by
+`tools/prune.py`, so its URL 404s rather than handing out next month's deck.
 
 ## Other material
 
