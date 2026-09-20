@@ -90,15 +90,22 @@ def main() -> int:
         if row["group"] not in group_ids:
             err(f"session {sid!r} uses unknown group {row['group']!r}")
 
-        for field in ("slides",):
-            if row.get(field) and not (ROOT / row[field]).exists():
-                err(f"session {sid!r}: {field} file {row[field]!r} does not exist")
+        # A referenced file has to be present only once the session is
+        # released. Before that its absence is the point: unreleased material is
+        # kept out of this public repository, so requiring it here would fail
+        # every CI run (and pass on the author's machine, where the file is
+        # still on disk but untracked).
+        if sid in published:
+            if row.get("slides") and not (ROOT / row["slides"]).exists():
+                err(f"published session {sid!r}: slides file "
+                    f"{row['slides']!r} does not exist")
 
-        for mat in row.get("materials", []):
-            url = mat.get("url", "")
-            if url and not url.startswith(("http://", "https://", "#", "mailto:")):
-                if not (ROOT / url).exists():
-                    err(f"session {sid!r}: material {url!r} does not exist")
+            for mat in row.get("materials", []):
+                url = mat.get("url", "")
+                if url and not url.startswith(("http://", "https://", "#", "mailto:")):
+                    if not (ROOT / url).exists():
+                        err(f"published session {sid!r}: material {url!r} "
+                            f"does not exist")
 
         note = ROOT / "content" / "lectures" / f"{sid}.md"
         if row.get("page") and sid in published and not note.exists():
