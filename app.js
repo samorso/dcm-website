@@ -147,7 +147,16 @@ function weightPie(pct) {
 }
 
 const ICON_PDF = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>';
+const ICON_SLIDES = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4"/><path d="M8 20h8"/></svg>';
 const ICON_LINK = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
+
+/** Icon and short label for a linked file, from its extension. Slides are a
+ *  PDF or a self-contained HTML deck; anything else is just a link. */
+function fileMeta(url) {
+  if (/\.pdf($|[?#])/i.test(url))   return { icon: ICON_PDF,    kind: "pdf"  };
+  if (/\.html?($|[?#])/i.test(url)) return { icon: ICON_SLIDES, kind: "html" };
+  return { icon: ICON_LINK, kind: "link" };
+}
 
 /* ============================ Markdown rendering ========================== */
 
@@ -575,14 +584,16 @@ async function viewLecture(view, id) {
   const published = isPublished(r.id);
   const mats = el("ul", { class: "materials" });
   if (published && r.slides) {
+    const meta = fileMeta(r.slides);
     mats.append(el("li", {}, el("a", { href: r.slides, target: "_blank", rel: "noopener" },
-      el("span", { class: "mat-icon", html: ICON_PDF }), "Slides",
-      el("span", { class: "mat-kind", text: "pdf" }))));
+      el("span", { class: "mat-icon", html: meta.icon }), "Slides",
+      el("span", { class: "mat-kind", text: meta.kind }))));
   }
   (published ? r.materials || [] : []).forEach((m) => {
-    mats.append(el("li", {}, el("a", { href: m.url, target: /^https?:/.test(m.url) ? "_blank" : null, rel: "noopener" },
-      el("span", { class: "mat-icon", html: /\.pdf$/i.test(m.url) ? ICON_PDF : ICON_LINK }), m.label,
-      el("span", { class: "mat-kind", text: m.kind || "link" }))));
+    const meta = fileMeta(m.url);
+    mats.append(el("li", {}, el("a", { href: m.url, target: "_blank", rel: "noopener" },
+      el("span", { class: "mat-icon", html: meta.icon }), m.label,
+      el("span", { class: "mat-kind", text: m.kind || meta.kind }))));
   });
 
   view.append(el("section", { class: "section" },

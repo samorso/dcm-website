@@ -190,7 +190,7 @@
       "group": "opening",
       "kind": "lecture",
       "summary": "What the course is for, the four-stage map, AI throughout, assessment, and a first look at the inspect → specify → verify workflow with a coding agent.",
-      "slides": "slides/lecture00-introduction.pdf",
+      "slides": "slides/lecture00-introduction.html",
       "prep": "Complete the minimum setup checks before class — see Setup.",
       "page": true
     },

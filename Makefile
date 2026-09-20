@@ -21,7 +21,9 @@ serve:               ## Preview locally at http://localhost:$(PORT)
 check:               ## Validate course.json and show what students can see
 	@python3 tools/check.py
 
-slides:              ## Copy released lecture PDFs from $(SLIDES_SRC) into slides/
+slides:              ## Copy decks (*.pdf, *.html) from $(SLIDES_SRC) into slides/
 	@test -d "$(SLIDES_SRC)" || { echo "No such directory: $(SLIDES_SRC)"; exit 1; }
-	@cp -v "$(SLIDES_SRC)"/*.pdf slides/ 2>/dev/null || echo "No PDFs found in $(SLIDES_SRC)"
+	@found=0; for f in "$(SLIDES_SRC)"/*.pdf "$(SLIDES_SRC)"/*.html; do \
+	  [ -f "$$f" ] || continue; cp -v "$$f" slides/; found=1; done; \
+	  [ $$found -eq 1 ] || echo "No .pdf or .html decks found in $(SLIDES_SRC)"
 	@echo "Now point the session's \"slides\" field in course.json at the new file."
