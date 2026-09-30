@@ -148,6 +148,7 @@ function weightPie(pct) {
 
 const ICON_PDF = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>';
 const ICON_SLIDES = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4"/><path d="M8 20h8"/></svg>';
+const ICON_ZIP = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>';
 const ICON_LINK = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
 
 /** Icon and short label for a linked file, from its extension. Slides are a
@@ -155,6 +156,7 @@ const ICON_LINK = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" s
 function fileMeta(url) {
   if (/\.pdf($|[?#])/i.test(url))   return { icon: ICON_PDF,    kind: "pdf"  };
   if (/\.html?($|[?#])/i.test(url)) return { icon: ICON_SLIDES, kind: "html" };
+  if (/\.zip($|[?#])/i.test(url))   return { icon: ICON_ZIP,    kind: "zip"  };
   return { icon: ICON_LINK, kind: "link" };
 }
 
