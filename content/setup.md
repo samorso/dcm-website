@@ -1,30 +1,130 @@
 ---
 title: Setup & resources
-eyebrow: Before the first class
-lede: A short list of things to install and — more importantly — to check. Budget about half an hour. There is a strict 15-minute setup cap in class, so arriving with working tools protects your own practice time.
+eyebrow: Before Week 3 · 1 October
+lede: Prepare VS Code and Git before 1 October, then run the checks. Allow about half an hour. The general course tools and resources are below.
 ---
 
-## Before 24 September
+## Before Week 3 — 1 October
 
-Install each item, then **run its check** and confirm you get the expected
-result. Installing without checking is the usual reason a setup fails in class.
+For the local Git practice, you need **VS Code, Git and the VS Code terminal**.
+Follow the instructions for your operating system, then run the checks below.
+No previous terminal experience is needed: type or paste one command at a time
+and press **Enter**.
 
-Open a terminal (in VS Code: **Terminal → New Terminal**) and type one command at
-a time. In every later instruction, replace `python` with whichever launcher
-works on your machine.
+### 1. Install Visual Studio Code
+
+Download [Visual Studio Code](https://code.visualstudio.com/download).
+
+- **Windows:** choose the normal Windows **User Installer**, run it and keep
+  the default installation options.
+- **macOS:** download the Mac version, open the `.dmg`, and drag **Visual Studio
+  Code** into **Applications**. Open it from there.
+
+No extra extensions are needed for Week 3. Open the supplied project with
+**File → Open Folder**, then open a file to check that you can view and save it.
+
+### 2. Install Git
+
+**Installing VS Code does NOT install Git.** Git is a separate program; VS Code
+uses it to work with your project's version history.
+
+#### Windows
+
+Download and run the installer from the official
+[Git for Windows installation page](https://git-scm.com/install/windows).
+The **default installer choices are appropriate for this course**.
+After installation, **close and reopen VS Code**.
+
+#### macOS
+
+First open **Terminal** (or **Terminal → New Terminal** in VS Code) and run:
+
+```bash
+git --version
+```
+
+If a version appears, Git is already available. Otherwise, macOS may offer to
+install the **Apple Command Line Tools**; accept and let installation finish.
+You can also request that installer explicitly:
+
+```bash
+xcode-select --install
+```
+
+Then run `git --version` again. See the official
+[Git macOS installation page](https://git-scm.com/install/mac).
+
+### 3. Check Git inside VS Code
+
+In VS Code, select **Terminal → New Terminal**. In the panel that opens, run:
+
+```bash
+git --version
+```
+
+You should see a version similar to `git version 2.x.x` (the numbers may differ).
+**If this works in the VS Code terminal, you are ready for the Git part of
+Week 3.** Set your commit authorship below before class too.
+
+On Windows, if Git is “not recognized”, first **close and reopen VS Code after
+installing Git**, open a new terminal and try again.
+
+### 4. Set your Git authorship once
+
+In the same terminal, replace the examples with your name and email, keeping the
+quotation marks:
+
+```bash
+git config --global user.name "First Last"
+git config --global user.email "your.email@example.com"
+```
+
+Git records this information as the **author of your commits**. This is **not
+your GitHub username or password**; a university email address is fine.
+`--global` makes these the defaults for your user account on this computer.
+
+Check that the values are yours:
+
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+### 5. GitHub is a separate account
+
+**Git** records version history on your computer. **GitHub** hosts repositories
+for sharing and collaboration. For later course use, create a
+[GitHub account](https://github.com/) if needed, sign in and open your profile.
+
+The Week 3 local Git practice needs no GitHub sign-in. Do not create a repository,
+set up SSH keys, install GitHub CLI or configure tokens/authentication for it.
+
+### Before Week 3: final check
+
+- ✓ VS Code opens.
+- ✓ `git --version` works in the VS Code terminal.
+- ✓ Git `user.name` shows your name.
+- ✓ Git `user.email` shows your email address.
+
+## General course setup — Python, R and Colab
+
+Keep these existing tools ready for the course's programming activities. The
+Week 3 README/Git practice does **not** require additional Python setup or
+running the instructor's Python demo yourself.
+
+Open a terminal (**Terminal → New Terminal** in VS Code) and run each check.
+In later instructions, replace `python` with whichever launcher works on your
+machine.
 
 | Install | Check | Expected |
 | --- | --- | --- |
-| [VS Code](https://code.visualstudio.com/download) | Open the supplied project folder; open a file and the integrated terminal. | You can see and save files, and the terminal is in the project folder. No advanced configuration needed. |
-| [Git](https://git-scm.com/downloads) | `git --version` | A version number, not “command not found”. |
-| [GitHub account](https://github.com/) | Sign in; open your profile. | You know your username and can reach the course material. |
 | [Python 3](https://www.python.org/downloads/) | `python3 --version` (macOS/Linux) or `py --version` (Windows), then the same launcher with `-c "print(2 + 2)"` | A Python **3** version and `4`. Use that launcher from then on. |
 | [R](https://cran.r-project.org/) *(recommended)* | `R --version` | A version number. R is fully supported and is often the better choice for projects. |
 | [Google Colab](https://colab.research.google.com/) | Sign in and open a blank notebook. | A notebook runs. This is the fallback when a local install is blocked. |
 
 <div class="note">
-The starter exercise needs only the Python standard library. No packages, API
-keys, Docker or paid service are required to be ready for the first class, and
+The Python starter exercise needs only the standard library. No packages, API
+keys or paid service are required to get started, and
 <strong>Docker is not needed until November</strong>.
 </div>
 
@@ -61,9 +161,11 @@ means skipping the learning objective.
 ## If setup fails in class
 
 Stop after the 15-minute setup window. Record the command, the error message and
-your operating system — without any credentials — then switch to the supplied
-Colab notebook and carry on. Fix the local setup after class, or bring it to
-office hours.
+your operating system — without any credentials — then use the activity fallback.
+**For Week 3, pair with someone whose Git setup
+works:** inspect the files and diffs together, then finish your own local setup
+after class. For notebook activities, switch to the supplied Colab notebook.
+Fix the local setup after class, or bring it to office hours.
 
 ## Operating systems and laptops
 
