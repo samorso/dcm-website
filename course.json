@@ -205,7 +205,7 @@
       "slides": "slides/lecture01-reproducibility-git.html",
       "materials": [
         { "label": "Practice guide — from a folder to a handover", "url": "slides/practice/student-guide.html" },
-        { "label": "Student pack (messy-project + orders-project)", "url": "slides/practice/student-pack.zip" }
+        { "label": "Student pack (messy-project + live-demo)", "url": "slides/practice/student-pack.zip" }
       ],
       "prep": "Download and extract the student pack into a new folder outside any Git repository, and finish the VS Code + Git setup — including your commit author name and email.",
       "page": true

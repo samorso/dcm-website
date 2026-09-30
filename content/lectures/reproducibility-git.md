@@ -19,7 +19,7 @@ GitHub and to another analyst who clones and continues the work.
 **Download the [student pack](slides/practice/student-pack.zip) and extract it**
 into a new personal folder — for example `Documents/dcm-week3`. Work in the
 extracted folder, not inside the ZIP, and keep it outside any existing Git
-repository. It contains `messy-project/` and `orders-project/`, neither of which
+repository. It contains `messy-project/` and `live-demo/`, neither of which
 has any Git history.
 
 Finish the [setup](#/setup) for VS Code and Git, **including your commit author
@@ -40,7 +40,7 @@ partner — can they find the input and the entry point? The deliverable is a
 diagnosis and a proposal, not repaired code.
 
 **Activity 2 — one reviewed improvement (15 min).** This one uses the clean
-`orders-project/`. Record the project as you received it, make one small edit,
+`live-demo/`. Record the project as you received it, make one small edit,
 and review it before you commit:
 
 ```bash
