@@ -783,8 +783,15 @@ a.sched-row:hover {
 }
 .markdown details[open] summary::before { content: "−"; }
 .markdown details > *:not(summary) { padding: 0 20px; }
-.markdown details[open] > *:not(summary):first-of-type { padding-top: 14px; }
-.markdown details[open] > *:last-child { padding-bottom: 16px; }
+/* A code block inside a <details> keeps its inset as margin, not padding, so the
+   Copy button (pinned to the wrapper) lands on the block instead of floating in
+   the gutter beside it. Same for code inside a callout. */
+.markdown details > .code-wrap,
+.markdown :is(.note, .warn, .key) > .code-wrap { padding: 0; margin: 1.4em 20px; }
+/* A .code-wrap is excluded from these: it carries its inset as margin so the
+   Copy button, pinned to the wrapper, stays on the code block. */
+.markdown details[open] > *:not(summary):not(.code-wrap):first-of-type { padding-top: 14px; }
+.markdown details[open] > *:not(.code-wrap):last-child { padding-bottom: 16px; }
 
 /* authored callouts inside Markdown: <div class="note"> / "warn" / "key" */
 .markdown .note, .markdown .warn, .markdown .key {

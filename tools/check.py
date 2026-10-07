@@ -96,6 +96,12 @@ def main() -> int:
         # every CI run (and pass on the author's machine, where the file is
         # still on disk but untracked).
         if sid in published:
+            if row.get("practiceGuide"):
+                guide = ROOT / "content" / "practice" / f"{row['practiceGuide']}.md"
+                if not guide.exists():
+                    err(f"published session {sid!r}: practice guide "
+                        f"{guide.relative_to(ROOT)} does not exist")
+
             if row.get("slides") and not (ROOT / row["slides"]).exists():
                 err(f"published session {sid!r}: slides file "
                     f"{row['slides']!r} does not exist")
@@ -151,6 +157,8 @@ def main() -> int:
     for row in course["schedule"]:
         sid = row["id"]
         paths = [f"content/lectures/{sid}.md"]
+        if row.get("practiceGuide"):
+            paths.append(f"content/practice/{row['practiceGuide']}.md")
         if row.get("slides"):
             paths.append(row["slides"])
         for mat in row.get("materials", []):

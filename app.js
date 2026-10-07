@@ -148,6 +148,7 @@ function weightPie(pct) {
 
 const ICON_PDF = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>';
 const ICON_SLIDES = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4"/><path d="M8 20h8"/></svg>';
+const ICON_GUIDE = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7M8 11h7"/></svg>';
 const ICON_ZIP = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>';
 const ICON_LINK = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
 
@@ -585,6 +586,11 @@ async function viewLecture(view, id) {
   /* materials + preparation ------------------------------------------- */
   const published = isPublished(r.id);
   const mats = el("ul", { class: "materials" });
+  if (published && r.practiceGuide) {
+    mats.append(el("li", {}, el("a", { href: `#/practice/${r.id}` },
+      el("span", { class: "mat-icon", html: ICON_GUIDE }), "Practice guide",
+      el("span", { class: "mat-kind", text: "page" }))));
+  }
   if (published && r.slides) {
     const meta = fileMeta(r.slides);
     mats.append(el("li", {}, el("a", { href: r.slides, target: "_blank", rel: "noopener" },
@@ -647,6 +653,52 @@ async function viewLecture(view, id) {
       text: "Notes for this session have not been published yet.",
     }));
   }
+}
+
+/* --------------------------------------------------------- practice ----- */
+
+/* A session's practice guide, rendered with the site's own typography instead
+ * of as a bare standalone file. Deliberately unlisted: it has no navigation
+ * entry and no schedule row, and is reached from its session page. Unlisted is
+ * not private — the page and its Markdown are public like everything else here;
+ * it is withheld only while the session itself is unpublished. */
+async function viewPractice(view, id) {
+  const r = COURSE.schedule.find((x) => x.id === id);
+  if (!r || !r.practiceGuide || !isPublished(id)) { viewNotFound(view, `#/practice/${id}`); return; }
+
+  view.append(el("p", { class: "backlink" },
+    el("a", { href: `#/lecture/${r.id}`, text: `← Back to ${r.title}` })));
+
+  const head = el("header", {
+    class: "page-head", style: `--group-color: ${groupColor(r.group)}`,
+  },
+    el("p", { class: "page-eyebrow" },
+      el("span", { class: "lead-color", text: "Practice guide" }),
+      el("span", { class: "dot", "aria-hidden": "true" }),
+      el("span", { text: r.title }),
+      el("span", { class: "dot", "aria-hidden": "true" }),
+      el("span", { text: sessionDate(r).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) })
+    ),
+    el("h1", { text: r.title })
+  );
+  view.append(head);
+
+  const body = el("div", { class: "markdown" }, el("p", { class: "loading", text: "Loading…" }));
+  view.append(body);
+
+  try {
+    const { body: md } = await loadMarkdown(`content/practice/${r.practiceGuide}.md`);
+    // The guide's own H1 becomes the page title; drop it so it is not repeated.
+    const m = /^\uFEFF?\s*#[ \t]+([^\n]+)\r?\n+/.exec(md);
+    if (m) head.querySelector("h1").textContent = m[1].trim();
+    renderMarkdownInto(body, m ? md.slice(m[0].length) : md);
+  } catch (err) {
+    body.innerHTML = "";
+    body.append(el("div", { class: "error-box" },
+      el("p", { text: `This practice guide could not be loaded (${err.message}).` })));
+  }
+
+  document.title = `Practice guide · ${r.title} · ${COURSE.course.title}`;
 }
 
 /* ------------------------------------------------------------------ doc -- */
@@ -737,6 +789,7 @@ async function route() {
   if (!head) { viewHome(view); }
   else if (head === "schedule") { viewSchedule(view); }
   else if (head === "lecture" && parts[1]) { await viewLecture(view, parts[1]); }
+  else if (head === "practice" && parts[1]) { await viewPractice(view, parts[1]); }
   else if (DOC_ROUTES.has(head)) { await viewDoc(view, head); }
   else { viewNotFound(view, `#/${raw}`); }
 
@@ -765,7 +818,8 @@ function buildNav() {
 function setActiveNav(head) {
   document.querySelectorAll("#navList a").forEach((a) => {
     const r = a.dataset.route;
-    const active = r === head || (r === "schedule" && head === "lecture");
+    const active = r === head ||
+      (r === "schedule" && (head === "lecture" || head === "practice"));
     if (active) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   });

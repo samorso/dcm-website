@@ -60,6 +60,9 @@ def main(argv: list[str]) -> int:
             continue
         drop(site / "content" / "lectures" / f"{row['id']}.md",
              f"notes: {row['id']}")
+        if row.get("practiceGuide"):
+            drop(site / "content" / "practice" / f"{row['practiceGuide']}.md",
+                 f"practice guide: {row['practiceGuide']}")
         for ref in local_refs(row):
             drop(site / ref, f"file:  {ref}")
 
