@@ -66,6 +66,25 @@ python3 -m http.server 8000
 make check          # validate course.json, dates and local links
 ```
 
+## Week 6 asynchronous activity
+
+The 22 October session uses the existing session and practice-guide routes:
+`#/lecture/responsible-ai` and `#/practice/responsible-ai`. Its student-facing
+files are `content/lectures/responsible-ai.md`,
+`content/practice/responsible-ai.md`, and the self-contained download
+`slides/lecture04/practice/student-guide.html`. The latter follows the earlier
+practice handouts and can be saved or printed from a browser.
+
+Week 6 remains outside `published`; these three files stay ignored until an
+instructor-approved release. `tools/prune.py` removes them from the deployment
+copy. The existing 25% / 25% / 50% assessment weights remain unchanged. Confirm
+the optional bonus policy, grade calculation and Moodle availability before
+releasing the student materials.
+
+Quiz questions, Moodle import XML, answer keys and instructor feedback must
+remain outside this public repository, including untracked folders and output
+archives. They are imported privately into Moodle, never served by this site.
+
 ---
 
 ## Why hash routing

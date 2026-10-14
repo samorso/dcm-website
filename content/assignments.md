@@ -70,6 +70,6 @@ it, and important outputs must be checked independently.
 
 ## Late work, submission and grades
 
-Submission, deadlines, extensions and grades are handled on **Moodle**, which is
+Submission, deadlines, extensions and grades are handled on **[Moodle](https://moodle.unil.ch/course/view.php?id=38061)**, which is
 the official record. This page describes what the assignments are for; it is not
 the place where rules are enforced.

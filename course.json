@@ -33,11 +33,11 @@
   },
 
   "_README_published": "Which sessions' material students can reach. A session's slides, links and notes appear ONLY if its id is listed in `published`; every other session shows \"not published yet\". tools/prune.py also keeps unlisted files out of the deployed site, so a direct URL cannot reach them either. To open a session: add its id here, commit, push.",
-  "published": ["introduction", "reproducibility-git", "code-literacy-1"],
+  "published": ["introduction", "reproducibility-git", "code-literacy-1", "code-literacy-2", "responsible-ai"],
 
   "moodle": {
     "note": "Moodle remains the official UNIL space for announcements, submissions, grades and the course forum. This public site carries the syllabus, schedule, slides and materials.",
-    "url": ""
+    "url": "https://moodle.unil.ch/course/view.php?id=38061"
   },
 
   "pillars": [
@@ -234,6 +234,12 @@
       "group": "code",
       "kind": "lecture",
       "summary": "Control flow, functions, input checks, errors and warnings — and reading, modifying and debugging code you did not write.",
+      "slides": "slides/lecture03/lecture03-code-literacy-ii.html",
+      "practiceGuide": "code-literacy-2",
+      "materials": [
+        { "label": "Student pack (control flow and functions, Python and R)", "url": "slides/lecture03/practice/student-pack.zip" }
+      ],
+      "prep": "Extract the student pack and reuse your Week 4 Python or R setup — the standard library and base R are enough. Nothing new to install.",
       "page": true
     },
     {
@@ -243,7 +249,14 @@
       "title": "Responsible AI at UNIL",
       "group": "ai",
       "kind": "async",
-      "summary": "Asynchronous session on institutional guidance for AI use, including UNIL resources such as AI_GO. No class meeting in the room.",
+      "summary": "Week 6 · 90 minutes asynchronously: two UNIL readings, two AI_GO scenarios and an advice critique, an optional Moodle quiz, and a personal reflection. No class meeting in the room.",
+      "practiceGuide": "responsible-ai",
+      "materials": [
+        { "label": "Activity guide — save or print for offline use", "url": "slides/lecture04/practice/student-guide.html", "kind": "html" },
+        { "label": "Reading 1 — Scientific integrity and responsible AI", "url": "https://wp.unil.ch/iaunil/en/scientific-integrity-and-responsible-use-of-generative-ai-in-the-academic-context-at-unil/" },
+        { "label": "Reading 2 — Choosing appropriate AI tools", "url": "https://wp.unil.ch/iaunil/en/ai_go-two-minutes-to-find-out-which-ai-tools-you-are-allowed-to-use-with-your-data/" },
+        { "label": "AI_GO questionnaire", "url": "https://ia.unil.ch/AI_GO" }
+      ],
       "page": true
     },
     {

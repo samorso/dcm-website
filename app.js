@@ -223,6 +223,16 @@ function renderMarkdownInto(target, md) {
 
 /* ================================ fragments =============================== */
 
+/** The first "Moodle" in a string becomes a link when course.json gives a URL.
+ *  Keeps the URL in one place instead of repeated through the content files. */
+function linkMoodle(text) {
+  const url = COURSE.moodle && COURSE.moodle.url;
+  const html = esc(text);
+  if (!url) return html;
+  return html.replace("Moodle",
+    `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Moodle</a>`);
+}
+
 function sectionHead(title, aside) {
   return el("div", { class: "section-head" },
     el("h2", { text: title }),
@@ -464,7 +474,7 @@ function viewHome(view) {
           el("span", { class: "mat-kind", text: "site" })))
       ),
       el("div", { class: "markdown", style: "font-size:16.5px" },
-        el("div", { class: "note", html: `<p>${esc(COURSE.moodle.note)}</p>` })
+        el("div", { class: "note", html: `<p>${linkMoodle(COURSE.moodle.note)}</p>` })
       )
     )
   ));
@@ -924,6 +934,9 @@ function fillFooter() {
     `${esc(c.programme)} · ${esc(c.institution)} · ${esc(c.term)} — ` +
     `${esc(lg.day)}s ${esc(lg.time)}, ${esc(lg.room)} · ` +
     `<a href="mailto:${esc(ins.email)}">${esc(ins.name)}</a>`;
+
+  const note = document.querySelector(".footer-note");
+  if (note) note.innerHTML = linkMoodle(note.textContent);
 }
 
 /* ================================== boot ================================== */
