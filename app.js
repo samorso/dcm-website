@@ -167,6 +167,20 @@ function slugify(text) {
   return text.toLowerCase().replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-");
 }
 
+/* Pandoc-style explicit heading ids — "## Start here {#start}". marked has no
+ * attribute syntax, so it leaves the braces as literal heading text. Lift the id
+ * onto the heading and drop it from the text. Runs before addHeadingIds, so an
+ * explicit id wins over the generated slug and the standalone pandoc build and
+ * this page end up with the same anchors. */
+function applyHeadingAttrs(container) {
+  container.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach((h) => {
+    const m = /^([\s\S]*?)\s*\{#([A-Za-z][\w:.-]*)\}\s*$/.exec(h.innerHTML);
+    if (!m) return;
+    h.innerHTML = m[1];
+    h.id = m[2];
+  });
+}
+
 function addHeadingIds(container) {
   const seen = new Set();
   container.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach((h) => {
@@ -215,6 +229,7 @@ function markExternalLinks(container) {
 function renderMarkdownInto(target, md) {
   marked.setOptions({ gfm: true, breaks: false });
   target.innerHTML = marked.parse(md);
+  applyHeadingAttrs(target);
   addHeadingIds(target);
   wrapTables(target);
   addCopyButtons(target);

@@ -33,7 +33,7 @@
   },
 
   "_README_published": "Which sessions' material students can reach. A session's slides, links and notes appear ONLY if its id is listed in `published`; every other session shows \"not published yet\". tools/prune.py also keeps unlisted files out of the deployed site, so a direct URL cannot reach them either. To open a session: add its id here, commit, push.",
-  "published": ["introduction", "reproducibility-git", "code-literacy-1", "code-literacy-2", "responsible-ai"],
+  "published": ["introduction", "reproducibility-git", "code-literacy-1", "code-literacy-2", "responsible-ai", "sql"],
 
   "moodle": {
     "note": "Moodle remains the official UNIL space for announcements, submissions, grades and the course forum. This public site carries the syllabus, schedule, slides and materials.",
@@ -267,6 +267,12 @@
       "group": "data",
       "kind": "lecture",
       "summary": "Relational thinking, SELECT, joins and aggregation, and calling SQL from Python/R — plus checking that a query means what you think it means.",
+      "slides": "slides/lecture05/lecture05-sql.html",
+      "practiceGuide": "sql",
+      "materials": [
+        { "label": "Student pack (synthetic database, Python and R)", "url": "slides/lecture05/practice/student-pack.zip" }
+      ],
+      "prep": "Extract the student pack and check one route before class: Python needs sqlite3 and pandas, R needs DBI and RSQLite. No database server, cloud account or internet connection is needed during the exercises.",
       "page": true
     },
     {
