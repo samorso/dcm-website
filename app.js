@@ -217,6 +217,23 @@ function wrapTables(container) {
   });
 }
 
+/* A practice guide is written to sit beside its data files, but the site page
+ * lives at a hash route, so "data/raw/x.json" would resolve against the site
+ * root and 404. Re-point relative links and images at the folder the guide is
+ * actually published in (course.json `practiceBase`). Absolute URLs, in-page
+ * anchors and route links are left alone. */
+function rebaseRelativeRefs(container, base) {
+  if (!base) return;
+  const prefix = base.endsWith("/") ? base : base + "/";
+  const fix = (el, attr) => {
+    const v = el.getAttribute(attr);
+    if (!v || /^(https?:|mailto:|data:|#|\/)/.test(v)) return;
+    el.setAttribute(attr, prefix + v);
+  };
+  container.querySelectorAll("a[href]").forEach((a) => fix(a, "href"));
+  container.querySelectorAll("img[src]").forEach((i) => fix(i, "src"));
+}
+
 /* External links open in a new tab and say so to assistive tech. */
 function markExternalLinks(container) {
   container.querySelectorAll('a[href^="http"]').forEach((a) => {
@@ -717,6 +734,7 @@ async function viewPractice(view, id) {
     const m = /^\uFEFF?\s*#[ \t]+([^\n]+)\r?\n+/.exec(md);
     if (m) head.querySelector("h1").textContent = m[1].trim();
     renderMarkdownInto(body, m ? md.slice(m[0].length) : md);
+    rebaseRelativeRefs(body, r.practiceBase);
   } catch (err) {
     body.innerHTML = "";
     body.append(el("div", { class: "error-box" },

@@ -23,6 +23,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import pathlib
+import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -101,6 +102,26 @@ def main() -> int:
                 if not guide.exists():
                     err(f"published session {sid!r}: practice guide "
                         f"{guide.relative_to(ROOT)} does not exist")
+
+            # A guide written beside its data files needs `practiceBase`, or its
+            # relative links resolve against the site root and 404 on the page.
+            if row.get("practiceGuide"):
+                guide = ROOT / "content" / "practice" / f"{row['practiceGuide']}.md"
+                if guide.exists():
+                    text = guide.read_text(encoding="utf-8")
+                    rel = [h for h in re.findall(r"\]\(([^)\s]+)\)", text)
+                          + re.findall(r'href="([^"]+)"', text)
+                          if not h.startswith(("http", "#", "mailto:", "/"))]
+                    base = row.get("practiceBase")
+                    if rel and not base:
+                        err(f"published session {sid!r}: its practice guide links "
+                            f"{len(set(rel))} relative file(s) (e.g. {sorted(set(rel))[0]}) "
+                            f"but the session has no 'practiceBase'")
+                    for href in sorted(set(rel)) if base else []:
+                        target = ROOT / (base.rstrip("/") + "/" + href)
+                        if not target.exists():
+                            err(f"published session {sid!r}: practice guide links "
+                                f"{href!r}, missing at {target.relative_to(ROOT)}")
 
             if row.get("slides") and not (ROOT / row["slides"]).exists():
                 err(f"published session {sid!r}: slides file "
