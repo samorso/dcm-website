@@ -32,21 +32,24 @@ jobs:
       - name: Stage the site
         # Everything except the repository's own tooling. CNAME and .nojekyll
         # are deliberately kept: CNAME re-asserts dcm.samorso.ch on every
-        # deploy, .nojekyll tells Pages to publish the files verbatim. The bare
-        # 'README.md' pattern
-        # matches at every level, so slides/README.md — instructor notes, not
-        # student material — stays out of the published site too.
+        # deploy, .nojekyll tells Pages to publish the files verbatim.
+        #
+        # Every exclude is ANCHORED with a leading slash. A bare 'README.md'
+        # would match at every level and silently drop student material such as
+        # slides/lectureNN/practice/data/README.md, which a practice guide
+        # links. That shipped once; the verify step below now catches it.
         run: |
           mkdir -p _site
           rsync -a ./ _site/ \
-            --exclude '.git/' \
-            --exclude '.github/' \
-            --exclude '_site/' \
-            --exclude 'tools/' \
-            --exclude 'Makefile' \
-            --exclude 'README.md' \
-            --exclude 'MAINTENANCE.md' \
-            --exclude '.gitignore'
+            --exclude '/.git/' \
+            --exclude '/.github/' \
+            --exclude '/_site/' \
+            --exclude '/tools/' \
+            --exclude '/Makefile' \
+            --exclude '/README.md' \
+            --exclude '/slides/README.md' \
+            --exclude '/MAINTENANCE.md' \
+            --exclude '/.gitignore'
           echo "Staged files:"
           find _site -maxdepth 2 -printf '%P\n' | sort
 
@@ -56,6 +59,13 @@ jobs:
         # their notes and files from the staged copy so no direct URL reaches
         # them. It touches _site/ only; the repository keeps every file.
         run: python3 tools/prune.py _site
+
+      - name: Verify the staged site
+        # The repository is not the deployment: the rsync excludes above and
+        # prune.py both remove files, and the local preview server sees
+        # neither. This asserts that every file a PUBLISHED session needs —
+        # including the files its practice guide links — survived staging.
+        run: python3 tools/verify_site.py _site
 
       - name: Configure Pages
         uses: actions/configure-pages@v6
