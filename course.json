@@ -33,7 +33,7 @@
   },
 
   "_README_published": "Which sessions' material students can reach. A session's slides, links and notes appear ONLY if its id is listed in `published`; every other session shows \"not published yet\". tools/prune.py also keeps unlisted files out of the deployed site, so a direct URL cannot reach them either. To open a session: add its id here, commit, push.",
-  "published": ["introduction", "reproducibility-git", "code-literacy-1", "code-literacy-2", "responsible-ai", "sql", "apis-json"],
+  "published": ["introduction", "reproducibility-git", "code-literacy-1", "code-literacy-2", "responsible-ai", "sql", "apis-json", "software-engineering"],
 
   "moodle": {
     "note": "Moodle remains the official UNIL space for announcements, submissions, grades and the course forum. This public site carries the syllabus, schedule, slides and materials.",
@@ -300,6 +300,14 @@
       "group": "engineering",
       "kind": "lecture",
       "summary": "Functions and modules, documentation, refactoring and tests — and how to specify, review and test work produced with an agent.",
+      "slides": "slides/lecture07/lecture07-software-engineering.html",
+      "practiceGuide": "software-engineering",
+      "practiceBase": "slides/lecture07/practice/",
+      "materials": [
+        { "label": "Student pack (one project, Python and R routes)", "url": "slides/lecture07/practice/student-pack.zip" },
+        { "label": "Source notes — where the material comes from", "url": "slides/lecture07/source-notes.html" }
+      ],
+      "prep": "Extract the student pack and check one route before class: Python needs pandas, R needs jsonlite. Both are already in use from earlier weeks — nothing new to install.",
       "page": true
     },
     {

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>DCM · Offline case source notes</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">body { max-width: 850px; margin: 50px auto; padding: 0 28px; font: 18px/1.6 'Liberation Sans', Arial, sans-serif; color: #17262b; }
+h1 { font-size: 38px; line-height: 1.15; color: #23373b; border-top: 5px solid #6a5acd; padding-top: 25px; }
+h2 { margin-top: 45px; color: #373895; } h3 { color: #465a65; }
+a { color: #a53d7c; } pre { background: #f5f7fa; padding: 18px 22px; border-radius: 10px; overflow-x: auto; }
+code { font-family: 'Liberation Mono', monospace; font-size: .88em; } blockquote { border-left: 5px solid #a53d7c; margin-left: 0; padding: 10px 20px; background: #f9f0f6; }
+table { border-collapse: collapse; width: 100%; } td,th { text-align: left; padding: 10px; border-bottom: 1px solid #dce0ed; }
+@media print { body { margin: 0; font-size: 11pt; } pre { white-space: pre-wrap; } h2,h3 { break-after: avoid; } }
+</style>
+</head>
+<body>
+<h1 id="offline-source-notes-software-engineering-with-ai">Offline
+source notes — Software Engineering with AI</h1>
+<p>These factual summaries accompany lecture07.html. All information
+needed to present the two cases is local; external links below are
+optional primary-source reading. Original diagrams in the lecture are
+explanations, not historical photographs or reconstructed evidence.</p>
+<h2 id="mars-climate-orbiter-1999">Mars Climate Orbiter (1999)</h2>
+<p>NASA’s investigation describes impulse data supplied in pound-force
+seconds (lbf·s) where the interface specification required
+newton-seconds (N·s). The specification existed; inconsistent data and
+failure to detect the mismatch contributed to the loss. The lesson is to
+respect and independently validate an interface, not merely write
+documentation. In our World Bank pipeline, the corresponding promises
+include persons, years and percentages.</p>
+<p>Sources checked for Pass4: <a href="https://science.nasa.gov/mission/mars-climate-orbiter/">NASA
+mission</a>, <a href="https://www.jpl.nasa.gov/news/mars-climate-orbiter-team-finds-likely-cause-of-loss/">JPL
+findings</a>, <a href="https://discovery.larc.nasa.gov/discovery/PDF_FILES/mars_climate_orbiter_phaseII.pdf">NASA
+investigation</a>, AppendixB §§4–5 (PDF pages73–74).</p>
+<h2 id="knight-capital-2012">Knight Capital (2012)</h2>
+<p>The SEC describes an incorrect deployment activating defective code:
+over four million erroneous orders in45minutes and a loss
+above$460million. Deployment, operational response and risk controls
+matter as well as local calculations. Unit tests alone are not claimed
+to have prevented this incident. Our local handover checks the saved
+candidate and complete report workflow, with an explicit limit on what
+those checks establish.</p>
+<p>Primary source: <a href="https://www.sec.gov/newsroom/press-releases/2013-222">SEC
+release2013-222</a>, published16October2013 about1August2012.</p>
+<h2 id="visual-provenance">Visual provenance</h2>
+<p>The units comparison, handover cards, change-review.svg and
+test-net.svg are original explanatory diagrams. The NASA/JPL-Caltech
+artist concept on slide4 is educational-use imagery, captioned as an
+illustration and credited; see
+assets/mars-climate-orbiter-provenance.json for source and usage policy.
+See ENGAGEMENT-REDESIGN.md for source review, visual reuse terms and
+pedagogical caveats. All lecture visuals use local assets and fonts.</p>
+<h3 id="slide20-contextual-photograph">Slide20 contextual
+photograph</h3>
+<p>Historical NYSE trading floor, Carol M. Highsmith Archive, Library of
+Congress, Prints and Photographs Division. <a href="https://www.loc.gov/item/2011634218/">Catalogue item2011634218</a>
+dates it1980–2006 and states no known restrictions on publication. It
+illustrates the trading setting, not the2012 Knight Capital incident.
+Source JPEG and provenance are stored locally under assets/.</p>
+</body>
+</html>
