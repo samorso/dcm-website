@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="345" viewBox="0 0 650 345" preserveAspectRatio="none" role="img" aria-label="Transparent package shell">
+<defs><linearGradient id="glass" x2=".8" y2="1"><stop stop-color="#f4f2fb" stop-opacity=".85"/><stop offset="1" stop-color="#e9f2f2" stop-opacity=".65"/></linearGradient></defs>
+<ellipse cx="325" cy="321" rx="278" ry="15" fill="#23373b" opacity=".06"/>
+<path d="M30 57L80 17H622L575 57Z" fill="#ede9f6" stroke="#8d83b9" stroke-width="2"/>
+<path d="M575 57L622 17V273L575 320Z" fill="#dfe9eb" fill-opacity=".65" stroke="#8d83b9" stroke-width="2"/>
+<path d="M30 57H575V320H30Z" fill="url(#glass)" stroke="#8d83b9" stroke-width="2"/>
+<path d="M80 17V273H622M80 273L30 320" fill="none" stroke="#8d83b9" stroke-dasharray="6 7" stroke-opacity=".32" stroke-width="2"/>
+<path d="M52 65H561M39 75V302" stroke="white" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+<path d="M280 17L238 57H314L359 17" fill="#b8afd5" opacity=".25"/>
+</svg>

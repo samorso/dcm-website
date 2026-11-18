@@ -1,0 +1,39 @@
+<svg viewBox="0 0 260 110" xmlns="http://www.w3.org/2000/svg">
+<style>
+.flow-tracks { stroke: #c5d2d5; }
+.flow-signals {
+  stroke: #547780;
+  stroke-dasharray: 8 110;
+  animation: data-flow 4s linear infinite;
+}
+.flow-signals path:last-child { stroke: #eb078e; }
+.flow-result { animation: result-pulse 4s ease-in-out infinite; }
+@keyframes data-flow { to { stroke-dashoffset: -118; } }
+@keyframes result-pulse {
+  0%, 100% { stroke-opacity: .45; }
+  50% { stroke-opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce), print {
+  .flow-signals, .flow-result { animation: none; }
+}
+</style>
+<g class="flow-tracks" fill="none" stroke-width="1.5">
+<path d="M25 25 C75 25 65 55 115 55"/>
+<path d="M25 55 H115"/>
+<path d="M25 85 C75 85 65 55 115 55"/>
+<path d="M145 55 H230"/>
+</g>
+<g class="flow-signals" fill="none" stroke-width="2.5" stroke-linecap="round">
+<path d="M25 25 C75 25 65 55 115 55"/>
+<path d="M25 55 H115"/>
+<path d="M25 85 C75 85 65 55 115 55"/>
+<path d="M145 55 H230"/>
+</g>
+<g fill="#fafafa" stroke="#6a5acd" stroke-width="2">
+<circle cx="25" cy="25" r="5"/><circle cx="25" cy="55" r="5"/><circle cx="25" cy="85" r="5"/>
+<rect x="109" y="35" width="42" height="40" rx="10"/>
+</g>
+<path d="M124 47 L117 55 L124 63 M136 47 L143 55 L136 63" fill="none" stroke="#373895" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle class="flow-result" cx="232" cy="55" r="15" fill="#fafafa" stroke="#eb078e" stroke-width="2"/>
+<path d="M225 55 L230 60 L239 50" fill="none" stroke="#eb078e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

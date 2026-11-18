@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import posixpath
 import re
 import sys
 
@@ -53,6 +54,26 @@ def main(argv: list[str]) -> int:
             url = mat.get("url", "")
             if url and not url.startswith(("http://", "https://", "mailto:")):
                 need(url, f"material of {sid!r}: {mat.get('label', url)!r}")
+
+        # A deck can depend on files course.json never names: the Week 10
+        # interactive deck loads 76 support files, images, CSS and a data
+        # snapshot from beside itself. Walk every published HTML deck and
+        # assert each relative reference is present too.
+        for deck in [row.get("slides")] + [m.get("url", "") for m in row.get("materials", [])]:
+            if not deck or not deck.endswith((".html", ".htm")):
+                continue
+            if deck.startswith(("http://", "https://")):
+                continue
+            src = site / deck
+            if not src.exists():
+                continue
+            html = src.read_text(encoding="utf-8", errors="replace")
+            base = posixpath.dirname(deck)
+            for ref in sorted(set(re.findall(r'(?:src|href|data-src)="([^"]+)"', html))):
+                if re.match(r"^(https?:|data:|#|mailto:|/|\$\{)", ref) or "'" in ref:
+                    continue
+                target = posixpath.normpath(posixpath.join(base, ref.split("#")[0].split("?")[0]))
+                need(target, f"referenced by {deck}")
 
         guide_id = row.get("practiceGuide")
         if not guide_id:

@@ -1,0 +1,49 @@
+
+/* Data & Code Management (DaCM) theme */
+:root {
+  --dacm-accent: #4F46E5;
+  --dacm-accent-2: #06B6D4;
+  --dacm-bg: #0f172a;
+}
+.reveal .slides {
+  font-size: 20pt;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  letter-spacing: 0.2px;
+}
+.reveal a {
+  text-decoration: none;
+}
+.reveal a:hover {
+  text-decoration: underline;
+}
+.reveal .slide-number {
+  background: rgba(0,0,0,0.35);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+.reveal .footer {
+  color: #cbd5e1;
+}
+.reveal code, .reveal pre code {
+  line-height: 1.35;
+}
+/* Accent rules */
+.reveal strong, .reveal .callout-tip {
+  color: var(--dacm-accent);
+}
+.reveal .callout-important {
+  border-left: 6px solid var(--dacm-accent-2);
+}
+/* Logo size in footer */
+.reveal .slide-logo {
+  height: 36px !important;
+  width: auto !important;
+}
+.reveal .code-line-highlighted {
+  background: rgba(255, 215, 0, 0.18);
+  outline: 2px solid rgba(255, 215, 0, 0.55);
+}
+.reveal .code-line-highlighted .hljs-ln-numbers {
+  background: rgba(255, 215, 0, 0.18);
+}

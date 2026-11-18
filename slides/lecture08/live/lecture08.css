@@ -1,0 +1,91 @@
+.reveal .flow {display:flex;align-items:center;justify-content:space-between;gap:12px;margin:35px 0;}
+.reveal .flow span {padding:20px 15px;background:#eeedf6;border:1px solid #dce0ed;border-radius:12px;text-align:center;font-size:25px;flex:1;}
+.reveal .flow b {font-size:22px;color:#a53d7c;}
+.reveal pre,.reveal pre code {font-size:22px;line-height:1.35;}
+.reveal pre code {padding:12px 16px;}
+.reveal .dense {font-size:23px;}
+.reveal .dense p {margin:10px 0;}
+.reveal .dense pre {margin:10px 0;}
+.reveal .dense pre code {font-size:20px;}
+.reveal .footer {color:#52666e;}
+
+.reveal .closing .answer {color:#23373b;}
+.reveal .closing .answer code,.reveal .closing .answer strong {color:#373895;}
+
+/* Editorial stories: technical content stays editable, all rules are scoped. */
+.reveal .story-slide {font-size:25px;}
+.reveal .story-slide .story-question {font-size:27px;line-height:1.25;margin:14px 0 12px;color:#23373b;}
+.reveal .story-slide .story-correction {font-size:23px;line-height:1.3;padding:12px 18px;background:#edf3f3;border-left:4px solid #547780;margin:10px 0;}
+.reveal .twins-art {height:240px;width:100%;background:#fbf8f5;border-radius:12px 12px 0 0;}
+.reveal .twins-art img {display:block;width:100%;height:240px;object-fit:contain;margin:0;}
+.reveal .twin-terminals {display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:0;}
+.reveal .story-terminal {background:#f5f7fa;border:1px solid #dce0ed;border-radius:10px;overflow:hidden;}
+.reveal .terminal-name {font-size:24px;font-weight:600;padding:10px 16px 3px;color:#373895;}
+.reveal .terminal-name span {font-size:18px;font-weight:400;color:#52666e;margin-left:10px;}
+.reveal .story-terminal pre {margin:0;border:0;background:transparent;}
+.reveal .story-terminal pre code {font-size:23px!important;line-height:1.15!important;padding:6px 16px 12px;white-space:pre-wrap;}
+.reveal .story-terminal.bob {border-top:4px solid #a53d7c;}
+.reveal .story-terminal.alice {border-top:4px solid #547780;}
+.reveal .case-date {font-size:20px;letter-spacing:.07em;color:#a53d7c;margin:14px 0 10px;}
+.reveal .case-date span {letter-spacing:0;color:#52666e;margin-left:18px;}
+.reveal .dependency-case {display:grid;grid-template-columns:760px 1fr;gap:30px;align-items:center;}
+.reveal .dependency-art {display:block;width:760px;height:220px;margin:0;}
+.reveal .case-facts {background:#f5f4fa;border-radius:12px;padding:10px 20px;}
+.reveal .case-facts > div {display:flex;align-items:baseline;gap:14px;margin:6px 0;}
+.reveal .case-facts strong {font-size:32px;white-space:nowrap;}
+.reveal .case-facts span {font-size:21px;}
+.reveal .case-facts p {font-size:22px;margin:12px 0;line-height:1.25;}
+.reveal .left-pad-case .case-question {font-size:27px;margin:13px 0 8px;}
+.reveal .case-cause {font-size:22px;line-height:1.25;margin:6px 0 10px;}
+.reveal .case-questions {display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.reveal .case-questions > div {background:#f5f7fa;border-top:3px solid #a59bc8;border-radius:4px;padding:12px 16px;}
+.reveal .case-questions h3 {font-size:23px;margin:0 0 6px;line-height:1.2;}
+.reveal .case-questions p {font-size:22px;line-height:1.25;margin:0;}
+.reveal .case-source {font-size:18px;line-height:1.3;margin-top:12px;color:#52666e;}
+.reveal .container-scene {display:grid;grid-template-columns:650px 1fr;gap:28px;align-items:center;}
+.reveal .image-package {position:relative;width:650px;height:345px;}
+.reveal .image-package > img {display:block;position:absolute;inset:0;width:650px;height:345px;margin:0;}
+.reveal .image-manifest {position:absolute;left:58px;top:75px;width:490px;font-size:22px;}
+.reveal .manifest-title {font-size:18px;letter-spacing:.1em;color:#52666e;margin-bottom:10px;}
+.reveal .image-manifest > div:not(.manifest-title) {display:flex;justify-content:space-between;align-items:center;gap:6px;padding:7px 0;border-bottom:1px solid #dce0ed;}
+.reveal .image-manifest b {font-size:19px;color:#547780;font-weight:500;}
+.reveal .image-manifest code {background:transparent;padding:0;font-size:20px;color:#23373b;}
+.reveal .image-manifest .missing {background:#faedf4;outline:5px solid #faedf4;}
+.reveal .image-manifest .missing b {color:#a53d7c;font-weight:700;}
+.reveal .image-manifest .included {background:#e2efec;outline:5px solid #e2efec;}
+.reveal .build-run-outcomes {display:grid;gap:18px;}
+.reveal .build-run-outcomes > div {padding:17px 22px;border-radius:10px;background:#f2f0f8;border-left:5px solid #6a5acd;}
+.reveal .build-run-outcomes .run-outcome {background:#faedf4;border-color:#a53d7c;}
+.reveal .build-run-outcomes code {font-size:25px;background:transparent;padding:0;}
+.reveal .build-run-outcomes strong {display:block;font-size:31px;margin:7px 0;color:#373895;}
+.reveal .build-run-outcomes .run-outcome strong {color:#a53d7c;font-size:28px;}
+.reveal .build-run-outcomes span {font-size:22px;}
+.reveal .story-caption {font-size:18px;color:#52666e;margin-top:12px;}
+.reveal .repaired-scene {display:grid;grid-template-columns:590px 1fr;gap:36px;align-items:center;height:278px;}
+.reveal .repaired-scene .image-package {transform:scale(.83);transform-origin:left top;height:278px;}
+.reveal .repair-label {color:#a53d7c;font-size:18px;letter-spacing:.1em;margin-bottom:16px;}
+.reveal .repair-reveal > code {font-size:30px;display:inline-block;padding:12px 18px;border:1px solid #c5bfdc;}
+.reveal .repair-reveal p {font-size:24px;line-height:1.35;margin:14px 0;}
+.reveal .verification-label {font-size:21px;margin:10px 0 6px;color:#373895;}
+.reveal #repaired-image pre {margin:8px 0 15px;}
+.reveal #repaired-image pre code {font-size:22px;line-height:1.35;}
+.reveal .evidence-claims {display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 18px;background:#edf3f3;border-radius:8px;}
+.reveal .evidence-claims > div {flex:1;}
+.reveal .evidence-claims strong {display:block;font-size:24px;}
+.reveal .evidence-claims span {font-size:20px;display:block;margin-top:6px;}
+.reveal .evidence-claims > b {font-size:35px;color:#a53d7c;}
+/* Keep repaired-package labels at projection size rather than scaling text. */
+.reveal .repaired-scene .image-package {transform:none;width:590px;height:278px;}
+.reveal .repaired-scene .image-package > img {width:590px;height:278px;}
+.reveal .repaired-scene .image-manifest {left:56px;top:58px;width:435px;font-size:21px;}
+.reveal .repaired-scene .image-manifest > div:not(.manifest-title) {padding:5px 0;}
+.reveal .repaired-scene .image-manifest code {font-size:20px;}
+.reveal .repaired-scene .manifest-title {margin-bottom:6px;}
+
+/* File labels remain inside the transparent front panel in both states. */
+.reveal .image-manifest {top:68px;}
+.reveal .image-manifest > div:not(.manifest-title) {padding:5px 0;}
+.reveal .repaired-scene .image-manifest {top:48px;}
+.reveal .repaired-scene .image-manifest > div:not(.manifest-title) {padding:3px 0;}
+
+.reveal .repaired-scene .image-manifest > div:not(.manifest-title) {padding:2px 0;}
