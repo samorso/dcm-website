@@ -1,8 +1,8 @@
 # Week 10 · Environments & Docker
 HEC Lausanne · 19 November 2026
 
-## Preflight — distribute Tuesday, 17 November
-Allow 15–25 minutes before class. Download student-pack.zip and extract it to a local folder. Open a terminal **inside student-pack**, where report.py and Dockerfile are visible. Do not work inside the ZIP preview. Keep the whole folder, including data and .dockerignore.
+## Preflight
+Download student-pack.zip and extract it to a local folder. Open a terminal **inside student-pack**, where report.py and Dockerfile are visible. Do not work inside the ZIP preview. Keep the whole folder, including data and .dockerignore.
 
 1. Install Python 3.14 from https://www.python.org/downloads/ if needed. Check `python3 --version` (macOS/Linux) or `py -3.14 --version` (Windows PowerShell).
 2. Install Docker Desktop for your platform from https://docs.docker.com/desktop/ (Linux users may already have Docker Engine). Complete platform prerequisites and restart if prompted. **Start Docker before class and wait until its engine is ready.** `docker version` must show both Client and Server. Seeing only Client is insufficient.
