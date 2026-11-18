@@ -220,7 +220,10 @@
 <p>“It worked on my laptop.” What would a colleague need?</p>
 </div>
 <aside class="notes">
-<p>2 minutes. Collect Python version, packages, files and operating system. Keep the frozen reporting project throughout. Kahoot precedes the 90-minute core.</p>
+<p><strong>Say:</strong> “Imagine you clone the very same GitHub repository as a colleague. The code is identical, but the program runs on your computer and fails on theirs. What could the colleague be missing?” Let students suggest versions of Python, installed packages, data files or a different operating system. “Today we’ll learn how to describe more of the environment needed to execute our work.”</p>
+<p><strong>Ask:</strong> “If I give you just <code>report.py</code>, have I given you everything required to reproduce its result?” Expect no.</p>
+<p><strong>Remarks:</strong> This continues last week’s handover and testing discussion. Keep one frozen World Bank population report throughout. There is no need for a terminal demonstration yet.</p>
+<p><strong>Timing:</strong> 2 minutes, including two or three student responses.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -244,7 +247,10 @@
 <p><strong>You will:</strong> diagnose a dependency, recreate Python packages, build an image, and repair a missing file.</p>
 <p>Pair with a working neighbour if setup blocks you. Keep the report code unchanged.</p>
 <aside class="notes">
-<p>2 minutes. State the two blocks and break outside teaching time. Four short activities; no individual Docker installation clinic. All browser cells are a different execution environment.</p>
+<p><strong>Say:</strong> “First we’ll use Python’s own tools to install project dependencies in an isolated environment. After the break we’ll use Docker to package the program’s runtime more completely. You’ll diagnose a genuine-looking failure, install what is missing, build a container image, and repair a missing data file.”</p>
+<p><strong>Ask:</strong> “What would count as success: a report that opens, or a report that also passes its checks?” Seek both execution and verification.</p>
+<p><strong>Remarks:</strong> Tell students to work in pairs if setup blocks them. The browser exercises have their own Python runtime; they do not use the laptop’s Python or Docker. Do not turn this into a Docker installation workshop.</p>
+<p><strong>Timing:</strong> 2 minutes. Take the scheduled break between the two blocks.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -286,7 +292,10 @@ Both students have exactly the same code and data.<br><strong>What could explain
 Their execution environments differ: Bob’s executing Python is missing <strong>pandas</strong>. Check that interpreter and install its dependencies.
 </div>
 <aside class="notes">
-<p>2 minutes. Use about 45 seconds for the scene and prediction, 45 seconds for responses and reveal, 30 seconds to connect to the next browser/local distinction. This is an illustration, not a new activity or actual terminal capture. Read Bob’s error as one exception split across two lines for projection. Do not attribute the difference to operating systems, suggest reinstalling Python, or diagnose the code/data. The package must be installed in the interpreter that actually executes the report. The same fixed snapshot still contains six observations. This contrast motivates dependencies and project venvs.</p>
+<p><strong>Say:</strong> “Here are Alice and Bob. Both downloaded the same repository and the same frozen data. Alice sees three population-growth numbers. Bob sees <code>ModuleNotFoundError: No module named 'pandas'</code>. What is different?” Pause before revealing the explanation. “Bob’s executing Python cannot find pandas. That is an environment problem, not evidence that the Git repository or data are wrong.”</p>
+<p><strong>Ask:</strong> “Would changing the percentage formula repair this error?” No: the program fails before that calculation.</p>
+<p><strong>Remarks:</strong> The Alice/Bob artwork is illustrative, not a real terminal capture. Read the exception as one message spanning two lines. Point ahead to identifying the interpreter actually running the file.</p>
+<p><strong>Timing:</strong> 2 minutes, including roughly 45 seconds of predictions.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -319,7 +328,11 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicnVudGltZSJ9LCJjb2Rl
 </div>
 </div></div>
 <aside class="notes">
-<p>3 minutes. Allow a prediction before Run. Ask whose Python this is. Students add print(platform.python_implementation()). Distinguish the CPython implementation from its WebAssembly platform. sys.executable is a browser-runtime path, not the student’s local executable. No Docker commands can run here. If initialization fails, use static.html.</p>
+<p><strong>Say:</strong> “We can execute Python right here in the slides, but whose Python is it? Before clicking Run, predict whether this shows your laptop’s operating system and Python path.” Run the browser cell and point to <code>sys.version</code>, <code>sys.platform</code> and <code>sys.executable</code>. “This is Pyodide, Python running in the browser through WebAssembly. Its paths do not describe the Python installed on your laptop.”</p>
+<p><strong>Do, in the browser cell:</strong> Add and run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(platform.python_implementation())</span></code></pre></div>
+<p><strong>Remarks:</strong> Expect <code>CPython</code> as the implementation; the platform is typically <code>emscripten</code>. If the interactive runtime does not load, show the static slide’s expected output. Never try Docker commands in this cell.</p>
+<p><strong>Timing:</strong> 3 minutes. Allow a prediction before execution.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -342,7 +355,13 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicnVudGltZSJ9LCJjb2Rl
 <p><code>python -m pip</code> runs pip through that Python. A browser path says nothing about your laptop’s packages.</p>
 </div>
 <aside class="notes">
-<p>3 minutes. Demonstrate local interpreter path beside browser path. These diagnostic commands do not create or install anything. Expected paths vary by laptop. Python 3.14 is the pack target; local tests record the actual patch version.</p>
+<p><strong>Say:</strong> “Let’s compare the browser’s Python with the Python our terminal will use. On my Fedora laptop I can ask Python exactly where its executable lives. I can also ask that same Python which pip it will run.”</p>
+<p><strong>Do, in a local terminal:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">&quot;import sys; print(sys.executable)&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip <span class="at">--version</span></span></code></pre></div>
+<p><strong>Ask:</strong> “Why write <code>python3 -m pip</code> instead of an unqualified <code>pip</code>?” The <code>-m</code> form selects pip through the named interpreter. On Windows PowerShell, substitute <code>py -3.14</code> for <code>python3</code>.</p>
+<p><strong>Remarks:</strong> A command named <code>python3</code> does not itself guarantee a specific minor version. These commands inspect the environment without changing it. Do not confuse the browser’s executable path with a laptop path.</p>
+<p><strong>Timing:</strong> 3 minutes, including the live terminal comparison.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -368,7 +387,16 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicnVudGltZSJ9LCJjb2Rl
 <p><strong>Expected</strong> Fresh environment: <code>No module named 'pandas'</code>.</p>
 <p><strong>If blocked</strong> Use that supplied error; identify the interpreter and missing package with a partner.</p>
 <aside class="notes">
-<p>4 minutes. Protect 2 minutes for attempts, 1 minute pairing, 1 minute correction. Do not install into the global interpreter. If .venv already has pandas, use the supplied error rather than deleting an existing environment. Failure occurs while importing validation/pipeline; code and JSON are not the repair.</p>
+<p><strong>Say:</strong> “For this activity, failure is the expected result. Create a fresh virtual environment in the extracted student pack, then try the report using its Python. Do not install anything yet. I want you to tell me what failed and why.”</p>
+<p><strong>Do, macOS/Linux:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venv</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">.venv/bin/python</span> report.py pipeline.py</span></code></pre></div>
+<p><strong>Do, Windows PowerShell:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>py <span class="op">-</span><span class="dv">3.14</span> <span class="op">-</span>m venv <span class="op">.</span><span class="fu">venv</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\<span class="op">.</span><span class="fu">venv</span>\Scripts\python<span class="op">.</span><span class="fu">exe</span> report<span class="op">.</span><span class="fu">py</span> pipeline<span class="op">.</span><span class="fu">py</span></span></code></pre></div>
+<p><strong>Expected:</strong> A new environment cannot import <code>pandas</code>, giving <code>ModuleNotFoundError</code>. Ask students to locate the interpreter used, not to edit the Python source.</p>
+<p><strong>Remarks:</strong> If someone reused an environment where pandas is already installed, use the supplied failure message rather than deleting their files. Two minutes to try, one to discuss with a neighbour, one to correct. Installing globally is outside this activity.</p>
+<p><strong>Timing:</strong> 4 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -392,7 +420,10 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicnVudGltZSJ9LCJjb2Rl
 <p>A venv isolates Python packages. It does not package the operating system or automatically include your data.</p>
 </div>
 <aside class="notes">
-<p>2 minutes. Draw two projects with independent package versions. Students need no alternative managers. .venv is disposable and recreated, not shared as the project artifact. Activation is convenient; explicit interpreter paths also work.</p>
+<p><strong>Say:</strong> “A <code>.venv</code> gives a project its own Python package installation area. Imagine one project that needs one pandas version and another that needs a different version. Each environment can hold the version its project requires. You still start from an installed Python, and the operating system stays the same.”</p>
+<p><strong>Ask:</strong> “If I send you my <code>.venv</code> folder, is that our reproducibility strategy?” No. We share the recipe and recreate the environment on each machine.</p>
+<p><strong>Remarks:</strong> On Linux the environment’s Python executable often links to the base interpreter; on other systems it can be copied. Installed third-party packages live separately in <code>.venv</code>. The virtual environment does not automatically include project data. No live demo.</p>
+<p><strong>Timing:</strong> 2 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -418,7 +449,10 @@ six==1.17.0</code></pre>
 <p>Share this recipe, the Python version, code and data. Recreate <code>.venv</code> on each machine. Package pins alone do not fix the operating system.</p>
 </div>
 <aside class="notes">
-<p>2 minutes. Read only pandas pin aloud; no memorisation of transitive packages. These are a supplied tested set, not a recommendation to update packages. Do not run pip freeze over a large personal environment. Base Docker tag remains mutable; provenance limitation is in validation.</p>
+<p><strong>Say:</strong> “Here is the list of package versions that our report expects. The first line says that pandas must be version 2.3.3. The other lines pin the associated dependencies, including NumPy. We can share this small text file through GitHub and use it to install the packages in a fresh environment.”</p>
+<p><strong>Ask:</strong> “Does this file also install Python, copy our JSON data, or select the operating system?” No.</p>
+<p><strong>Remarks:</strong> These versions were tested for this exercise; students should not update them during class. Distinguish a version pin from a preserved package artifact: installation may still require a network download. Do not run <code>pip freeze</code> on the instructor’s global environment.</p>
+<p><strong>Timing:</strong> 2 minutes. The next slide illustrates the availability problem.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -478,7 +512,10 @@ With packages included and no runtime fetch, it can keep running. A clean rebuil
 JavaScript incident; the dependency-availability problem also applies to Python.<br>Source: <a href="https://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm.html">npm postmortem, 23 March 2016</a> · chain shown schematically
 </div>
 <aside class="notes">
-<p>3 minutes. 0:00–0:35 narrate: on 22 March 2016 one developer unpublished 273 npm packages, including left-pad; thousands of projects were affected for roughly 2.5 hours. The chain is schematic; do not suggest these generic nodes name actual projects. 0:35–1:10 ask the unchanged-code question, then reveal index 0: package availability changed outside the repository; show both transfer questions. 1:10–1:50 take predictions on exact version pins, then reveal index 1. Pinning identifies a required version but does not preserve its downloadable artifact; npm specifically reports chains requesting version 0.0.3. 1:50–2:40 discuss an already-built self-contained image, reveal index 2: it can run if it already contains what it needs and performs no missing-package fetch at runtime; rebuilding from scratch may fail. This image comparison is a forward question, not a new Docker workflow. 2:40–3:00 connect the JavaScript/npm example to Python package availability. Docker does not guarantee security, permanent availability or reproducibility. No Docker execution is claimed by this illustration. This replaces one minute each from slide 3, the venv explanation and requirements explanation; activities retain their allocations.</p>
+<p><strong>Say:</strong> “This is a real case from JavaScript in March 2016. A tiny package called <code>left-pad</code> added characters at the start of a string. For example, it could turn <code>42</code> into <code>00042</code> when asked for five characters. The developer unpublished 273 npm packages, and thousands of projects were disrupted even though their own code had not changed.”</p>
+<p><strong>Ask and reveal:</strong> “Would pinning the exact version guarantee a successful fresh build?” No: a pin names a version but cannot guarantee it remains downloadable. “Would a previously built image containing the package necessarily stop running?” No: if it has everything it needs and makes no new fetch, it may keep running while a clean rebuild fails.</p>
+<p><strong>Remarks:</strong> The diagram is schematic, not a historical project dependency map. This was an npm incident, but package availability matters for Python too. Avoid claiming Docker makes builds permanently reproducible or secure. Source is the npm postmortem already linked on the slide.</p>
+<p><strong>Timing:</strong> 3 minutes. Reveal answers after predictions.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -506,7 +543,16 @@ JavaScript incident; the dependency-availability problem also applies to Python.
 <p><strong>Expected:</strong> a path inside <code>.venv</code>.</p>
 <p>If activation is blocked, use <code>.venv/bin/python</code> or <code>.\.venv\Scripts\python.exe</code> instead of <code>python</code> in the next activity. No policy changes needed.</p>
 <aside class="notes">
-<p>3 minutes. Activation affects this terminal, not every notebook or VS Code session. Model checking sys.executable. PowerShell may block scripts; prefer explicit path fallback over changing security policy.</p>
+<p><strong>Say:</strong> “Rather than typing a long Python path for every command, we can activate the environment in the current terminal. Activation adjusts which <code>python</code> command the shell finds. It does not change every terminal, notebook, or VS Code session on your computer.”</p>
+<p><strong>Do:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">&quot;import sys; print(sys.executable)&quot;</span></span></code></pre></div>
+<p><strong>Windows PowerShell:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\<span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>python <span class="op">-</span>c <span class="st">&quot;import sys; print(sys.executable)&quot;</span></span></code></pre></div>
+<p><strong>Expected:</strong> The executable path points inside <code>.venv</code>. Explain that <code>deactivate</code> leaves the activated environment.</p>
+<p><strong>Remarks:</strong> If PowerShell blocks activation, use <code>.\.venv\Scripts\python.exe</code> explicitly rather than changing security policy. On macOS/Linux use <code>.venv/bin/python</code> as the equivalent fallback.</p>
+<p><strong>Timing:</strong> 3 minutes, with a live check of <code>sys.executable</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -531,7 +577,16 @@ JavaScript incident; the dependency-availability problem also applies to Python.
 <p><strong>Expected</strong> CHE <strong>1.314%</strong>, DEU <strong>0.275%</strong>, FRA <strong>0.262%</strong>; <code>BASIC: 14/14</code> and <code>PRECISION PASS</code>.</p>
 <p><strong>If blocked</strong> Use the explicit <code>.venv</code> Python path from the previous slide. If installation fails, pair and compare <code>expected-report.txt</code>.</p>
 <aside class="notes">
-<p>7 minutes. Allow 4 minutes execution, 2 compare, 1 correction. Initial installation needs internet; preflight downloads it. Do not edit reporting code or tests. Basic checks explicitly do not establish precision. Ask what exactly pip fixed. End promptly even if some installs fail.</p>
+<p><strong>Say:</strong> “We have diagnosed the missing package. Now let’s install the versions listed in <code>requirements.txt</code> into our project environment, run the unchanged report, and check its behavior. A successful import alone isn’t enough.”</p>
+<p><strong>Do, inside the student pack with <code>.venv</code> selected:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> report.py pipeline.py</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> checks.py pipeline.py</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> my-check.py pipeline.py</span></code></pre></div>
+<p><strong>Expected:</strong> Three rows for CHE, DEU and FRA; growth values displayed as 1.314%, 0.275% and 0.262%; <code>BASIC: 14/14</code>; <code>PRECISION PASS</code>.</p>
+<p><strong>Ask:</strong> “What did the installation fix?” The missing packages for the selected interpreter; the Python source and frozen data remained unchanged.</p>
+<p><strong>Remarks:</strong> Give students four minutes to run, two to compare with a partner, one for a correction. Installation needs access to the packages or a prepared cache. If blocked, use the explicit interpreter path or supplied expected output. Do not weaken checks to get a green result.</p>
+<p><strong>Timing:</strong> 7 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -585,7 +640,10 @@ JavaScript incident; the dependency-availability problem also applies to Python.
 <p>Matching display values is useful evidence. It cannot prove full-precision calculations.</p>
 </div>
 <aside class="notes">
-<p>2 minutes. Compare three rows with actual terminal output. Ask whether rounding in the report is the same as rounding in the calculation. The independent check is deliberately separate.</p>
+<p><strong>Say:</strong> “These are the actual values we expect from the saved World Bank snapshot. Switzerland increased by 116,760 people, giving about 1.314 percent growth. The other two rows provide an independent visual comparison with our terminal output.”</p>
+<p><strong>Ask:</strong> “If our terminal displays 1.314 percent, does that prove the underlying calculation kept all its digits?” No. Output formatting can hide early rounding.</p>
+<p><strong>Remarks:</strong> All population figures are persons, not thousands. Display rounds growth to three decimal places; the calculation contract keeps full precision. Do not launch another demo here. The next example shows why fixed inputs matter.</p>
+<p><strong>Timing:</strong> 2 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -618,7 +676,12 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic25hcHNob3QifSwiY29k
 </div>
 </div></div>
 <aside class="notes">
-<p>2 minutes. The JSON is copied byte-for-byte from Week 9, with its provenance. Explain that the browser downloads our packaged resource, not current World Bank data. A reproducible runtime cannot compensate for changing inputs. Both selections refer to the same frozen snapshot. Ask learners to restore CHE with Reset.</p>
+<p><strong>Say:</strong> “Now we’re back in browser Python, reading the saved JSON file that accompanies the lecture. We’re not calling the World Bank API again. A live endpoint could return revised data tomorrow, so saving the actual input matters.”</p>
+<p><strong>Do, in the browser cell:</strong> Run with <code>country = "CHE"</code>, then change only that line to <code>country = "FRA"</code> and run again.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>country <span class="op">=</span> <span class="st">&quot;CHE&quot;</span>  <span class="co"># then change to &quot;FRA&quot;</span></span></code></pre></div>
+<p><strong>Expected:</strong> The 2024 value is 9,005,582 for CHE and 68,551,653 for FRA.</p>
+<p><strong>Remarks:</strong> The browser downloads a packaged copy of the frozen file to its virtual filesystem; it does not fetch current API data. Remind students that a perfectly recreated environment cannot reproduce a result if the input silently changes. Use Start Over to restore the initial cell.</p>
+<p><strong>Timing:</strong> 2 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -657,7 +720,12 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImVycm9yIjp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6InBy
 </div>
 </div></div>
 <aside class="notes">
-<p>3 minutes. Give students a prediction and attempt before showing the solution. The difference between 16.667 and 100/6 exceeds 1e-9. Do not change the assertion or tolerance. Repeatable execution is not evidence of correct behavior. Reset restores the faulty starter; it is not a repaired solution.</p>
+<p><strong>Say:</strong> “Imagine we can reproduce the same result every time, but the calculation itself is defective. Here the function rounds a growth percentage before returning it. Predict what the assertion will say.” Run the cell. “For a change from 600 to 700, the exact percentage is 100/6, or 16.6666 repeating. Rounding it to 16.667 before returning the value is outside the agreed contract.”</p>
+<p><strong>Do, in the browser cell:</strong> Change only the return statement:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> rate</span></code></pre></div>
+<p><strong>Expected:</strong> Before the edit, <code>AssertionError: rounded too early</code>; afterward, <code>PASS</code>.</p>
+<p><strong>Remarks:</strong> Keep the independent assertion and absolute tolerance of <code>1e-9</code> unchanged. The browser’s faulty starter is intentionally separate from the correctly implemented student-pack pipeline. Reset restores the original fault, so do not call reset a repaired result.</p>
+<p><strong>Timing:</strong> 3 minutes, with prediction, failed execution and correction.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -681,7 +749,13 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p>Re-run the same check after changing the environment. Never weaken an assertion to make an image pass.</p>
 </div>
 <aside class="notes">
-<p>3 minutes. This check uses the unchanged Week 9 300→400 constructed fixture; browser used 600→700. Different cases, same unrounded contract. Point out that pipeline.py is already correct; browser repair does not require changing the pack code.</p>
+<p><strong>Say:</strong> “The student pack already contains an independent precision check from last week. It constructs a population change from 300 to 400. We know the correct percentage in advance: one hundred divided by three. The test compares that independently obtained answer with the pipeline’s result.”</p>
+<p><strong>Code reminder:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> my-check.py pipeline.py</span></code></pre></div>
+<p><strong>Expected:</strong> The expected and actual values agree to an absolute tolerance of <code>1e-9</code> percentage points, followed by <code>PRECISION PASS</code>.</p>
+<p><strong>Ask:</strong> “Why shouldn’t a test call the function under test to calculate its expected answer?” It could repeat the same error. “Why rerun after changing the environment?” Dependencies might affect execution, so acceptance evidence must match the environment we actually use.</p>
+<p><strong>Remarks:</strong> The browser’s 600→700 example and the pack’s 300→400 fixture differ deliberately. This check was already run in Activity B; there is no need for another full live demo.</p>
+<p><strong>Timing:</strong> 3 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -706,7 +780,10 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p>We can recreate Python packages. Python itself, system libraries and file inclusion still need attention. Next: package an execution environment with Docker.</p>
 </div>
 <aside class="notes">
-<p>2 minutes. Two minutes retrieval and transition. Block 1 ends at 45 minutes. Take the scheduled 10-minute break outside the 90-minute total. Do not introduce competing environment workflows.</p>
+<p><strong>Say:</strong> “Before we leave Python environments, explain three things to your neighbour: Which Python did you run? What did <code>requirements.txt</code> recreate? What still depends on your laptop?” Give pairs about a minute, then invite answers.</p>
+<p><strong>Expected:</strong> We used the project’s <code>.venv</code> interpreter; the requirements file installed pinned Python packages; the installed base Python, operating-system libraries and inclusion of the necessary files still matter. The browser Python used earlier is separate.</p>
+<p><strong>Remarks:</strong> “After the break, we’ll package more of that runtime using Docker.” No demonstration. Take a ten-minute break, outside the 90 minutes of teaching.</p>
+<p><strong>Timing:</strong> 2 minutes. Block 1 ends at 45 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -728,7 +805,11 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p>Docker must be installed <strong>and started</strong> on the host.</p>
 <p>Pair or analyse supplied outputs if Docker cannot run today.</p>
 <aside class="notes">
-<p>2 minutes. Block 2 begins. Docker Desktop provides the engine on supported laptops; Linux may use Engine. Containers share a kernel; Desktop uses a Linux VM for these Linux images. No requirement to learn VM administration.</p>
+<p><strong>Say:</strong> “Welcome back. A virtual environment solved our Python package problem, but it still depended on Python and other components on the laptop. Alice uses Windows, Bob uses macOS, and I use Fedora. Docker gives us a way to prepare an image containing Python, the packages, our scripts and the frozen data, then run that image.”</p>
+<p><strong>Walk through the diagram:</strong> “The Dockerfile is the recipe. Building creates an image. Running the image creates a container in which our report executes.”</p>
+<p><strong>Ask:</strong> “Does that mean Docker can work with nothing installed on the host?” No. The Docker engine must be installed and running.</p>
+<p><strong>Remarks:</strong> Linux containers share a Linux kernel; Docker Desktop on macOS and Windows normally supplies a Linux VM for Linux containers. Keep that clarification short. No live demo yet.</p>
+<p><strong>Timing:</strong> 2 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -773,7 +854,10 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p>Editing a Dockerfile does not update an existing image. <strong>Rebuild, then run the new image.</strong></p>
 </div>
 <aside class="notes">
-<p>3 minutes. Use recipe/prepared meal/serving analogy briefly then return to precise terms. A stopped container is not a source folder. No registry push or volume syntax required today.</p>
+<p><strong>Say:</strong> “Let’s be precise. The Dockerfile is just text instructions. The image is the environment we built from those instructions, tagged <code>dcm-w10</code> in this example. A container is one execution created from an image. We can run several containers from the same image.”</p>
+<p><strong>Ask:</strong> “Suppose I edit the Dockerfile. Does an image I built yesterday automatically change?” Wait for no, then reveal: “I must build a new image before I can run the new instructions.”</p>
+<p><strong>Remarks:</strong> The recipe/prepared meal/serving analogy may help for ten seconds, but return to the technical distinction. A stopped container is not the editable project directory, and today’s workflow uses neither image registries nor bind mounts.</p>
+<p><strong>Timing:</strong> 3 minutes. No terminal demo.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -796,7 +880,15 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p><code>COPY</code> brings a file from the build context into the image.</p>
 <p><code>RUN</code> executes <strong>during the build</strong>, installing the packages.</p>
 <aside class="notes">
-<p>3 minutes. Read four lines in order. The final dot in COPY is /app, because WORKDIR was set. The tag fixes a Python minor line but can move; actual digest must be recorded in rehearsal. No claim of bitwise reproducibility.</p>
+<p><strong>Say:</strong> “We’ll now read the Dockerfile rather than memorize it. <code>FROM python:3.14-slim</code> chooses a Python 3.14 base image. <code>WORKDIR /app</code> sets the working directory inside the image. <code>COPY requirements.txt .</code> copies the package recipe into <code>/app</code>. <code>RUN</code> executes when we build and installs the pinned packages there.”</p>
+<p><strong>Point to the code:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.14-slim</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> requirements.txt .</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--no-cache-dir</span> <span class="at">-r</span> requirements.txt</span></code></pre></div>
+<p><strong>Ask:</strong> “Where does the final dot in the COPY line put the file?” In <code>/app</code>, because WORKDIR already selected that directory.</p>
+<p><strong>Remarks:</strong> A tag such as <code>python:3.14-slim</code> can change as maintainers update it; a digest would identify the exact base image. Do not claim the build is bitwise immutable. No terminal demo.</p>
+<p><strong>Timing:</strong> 3 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -820,7 +912,14 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p><code>RUN</code> prepares the image. <code>CMD</code> starts the report later. Building the image does not execute this report.</p>
 </div>
 <aside class="notes">
-<p>3 minutes. Ask where /app/data/raw/… comes from. No network request in report execution. Show the untouched Python files and original provenance. This prepares the missing-data diagnosis without revealing the later defective file.</p>
+<p><strong>Say:</strong> “After preparing Python and its packages, we copy the project code. <code>COPY *.py .</code> brings in our Python scripts. <code>COPY data/ data/</code> adds the saved World Bank JSON, its provenance and the check fixtures. Finally, <code>CMD</code> gives the command that a container will run by default.”</p>
+<p><strong>Point to the code:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> *.py .</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> data/ data/</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">&quot;python&quot;</span>, <span class="st">&quot;report.py&quot;</span>, <span class="st">&quot;pipeline.py&quot;</span>]</span></code></pre></div>
+<p><strong>Ask:</strong> “What’s the difference between <code>RUN</code> on the preceding slide and <code>CMD</code> here?” <code>RUN</code> is executed during image construction. <code>CMD</code> runs later when we start a container, unless the run command overrides it.</p>
+<p><strong>Remarks:</strong> Ask where <code>/app/data/raw/population-2023-2024.json</code> comes from. The report uses the frozen file and makes no live API request. Do not yet disclose the broken recipe used in Activity D.</p>
+<p><strong>Timing:</strong> 3 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -841,7 +940,13 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p><code>.dockerignore</code> excludes <code>.venv</code>, caches and Git metadata.</p>
 <p><strong>Our data directory is deliberately included.</strong></p>
 <aside class="notes">
-<p>2 minutes. Demonstrate pwd/Get-Location and list the Dockerfile before build. Docker cannot COPY arbitrary files outside this context. The ignore file must not exclude data. No bind mounts today because they could hide a missing-data image defect.</p>
+<p><strong>Say:</strong> “This last dot is surprisingly important. In <code>docker build -t dcm-w10 .</code>, it means ‘use this current directory as the build context’. Docker can copy files from that context into the image. So run the command from the extracted student-pack folder, where you can see the Dockerfile and the <code>data</code> directory.”</p>
+<p><strong>Do, if useful, in a terminal before building:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> Dockerfile</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code></pre></div>
+<p><strong>Remarks:</strong> On Windows PowerShell use <code>Get-Location</code> and <code>Get-ChildItem</code> if needed. <code>.dockerignore</code> keeps <code>.venv</code>, caches and Git metadata out of the build context, but deliberately allows <code>data/</code>. Do not introduce bind mounts, which could hide the missing-data defect in the later exercise.</p>
+<p><strong>Timing:</strong> 2 minutes. A brief terminal folder check is optional.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -865,7 +970,10 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p>Pulling Python caches the base. It does <strong>not</strong> install pandas. A successful full build prepares the actual dependency layer.</p>
 </div>
 <aside class="notes">
-<p>2 minutes. Instructor must run the preparation sequence in runbook on the teaching laptop. On student machines caching is per engine and architecture. First builds need internet and time. Do not spend activity minutes waiting for uncached class-wide installation.</p>
+<p><strong>Say:</strong> “Building the image follows the recipe in order. First Docker obtains the base Python image, then installs the requirements, then copies our code and data. Docker can reuse earlier build layers. For example, changing a Python script normally doesn’t require reinstalling pandas if the requirements layer has not changed.”</p>
+<p><strong>Ask:</strong> “If I only run <code>docker pull python:3.14-slim</code>, have I prepared our report’s dependencies?” No. The base image doesn’t contain the packages installed by our Dockerfile’s RUN command.</p>
+<p><strong>Remarks:</strong> Before class, the instructor should run a complete build, not just pull the base. A first build can require internet and take several minutes. Caches are local to a Docker engine and can vary across platforms; do not promise the same cache to every student.</p>
+<p><strong>Timing:</strong> 2 minutes. No class-wide rebuild demonstration yet.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -890,7 +998,16 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p><strong>Expected</strong> Three report rows; <code>BASIC: 14/14</code>; <code>PRECISION PASS</code>.</p>
 <p><strong>If blocked</strong> Pair with a ready machine; analyse <code>supplied-output-analysis.md</code>. Record whether you executed or analysed.</p>
 <aside class="notes">
-<p>7 minutes. Give 4 minutes execution, 2 pair explanation, 1 correction. –rm removes the stopped container, not the image. No volume mounts or local Python needed for these commands. Stop installation troubleshooting after one minute. Always run all three commands, not just the report.</p>
+<p><strong>Say:</strong> “Time to use Docker. In the extracted student pack, first build the image. Then run the report. After that, run both the basic checks and the independent precision check inside that image. The last two steps matter because a plausible report alone is not enough evidence.”</p>
+<p><strong>Do, student terminal with Docker engine running:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> dcm-w10 .</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10 python checks.py pipeline.py</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10 python my-check.py pipeline.py</span></code></pre></div>
+<p><strong>Expected:</strong> Three population-growth rows, <code>BASIC: 14/14</code>, then <code>PRECISION PASS</code>.</p>
+<p><strong>Ask:</strong> “Does <code>--rm</code> delete the image?” No. It removes the stopped container after the command exits, so the image can be reused.</p>
+<p><strong>Remarks:</strong> Four minutes hands-on, two minutes to compare, one minute to correct. Do not troubleshoot one laptop’s Docker installation for longer than a minute; use a partner or <code>supplied-output-analysis.md</code>, recording which evidence was observed rather than executed. No local virtual environment is needed to run these container commands.</p>
+<p><strong>Timing:</strong> 7 minutes, high priority.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -912,7 +1029,12 @@ PRECISION PASS (absolute tolerance 1e-9 percentage points)</code></pre>
 <p>A local <code>python checks.py</code> checks local files. It does not verify the contents of your image.</p>
 </div>
 <aside class="notes">
-<p>2 minutes. Ask learners to point to tag, executable and script. This is why D must check the repaired tag. Default CMD does not run when an override is supplied.</p>
+<p><strong>Say:</strong> “Look closely at this command. <code>dcm-w10</code> names the image. Everything after that tag replaces the default command in the Dockerfile. So instead of running the report, Docker starts Python inside the container and executes <code>checks.py</code> against the pipeline bundled in the image.”</p>
+<p><strong>Code reminder:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10 python checks.py pipeline.py</span></code></pre></div>
+<p><strong>Ask:</strong> “If I run <code>python checks.py pipeline.py</code> in my laptop terminal, have I tested what is inside the image?” No. That tests local files using local Python; the container command checks the packaged files.</p>
+<p><strong>Remarks:</strong> Distinguish image tag, Python executable, script and argument. The override skips the default <code>CMD</code>. This distinction will matter when verifying the repaired tag in Activity D.</p>
+<p><strong>Timing:</strong> 2 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -970,7 +1092,10 @@ The build never read that input. The report tries to open it <strong>at run time
 Illustrated expected outcomes · not an execution log
 </div>
 <aside class="notes">
-<p>2 minutes. Give 45 seconds for prediction before revealing the explanation. Build instructions can finish without opening the report input; the default CMD runs later. Missing pandas would be ModuleNotFoundError, but this image already contains it. Do not show the missing COPY instruction here: the next slide asks students to inspect, Activity D owns the one-line repair, and the repaired illustration comes only afterward. Status labels are expected outcomes, not evidence of a Docker run on this development machine.</p>
+<p><strong>Say:</strong> “Here’s a small trap. Docker successfully builds an image containing Python, pandas, and our scripts, but the saved population JSON is missing. Can the build still succeed? Yes, because installing packages and copying scripts never required opening that data file. What happens when the report finally runs?” Wait for <code>FileNotFoundError</code>, then reveal the explanation.</p>
+<p><strong>Ask:</strong> “Is this another pandas problem?” No. This image already includes pandas; the missing item is input data.</p>
+<p><strong>Remarks:</strong> The figure shows expected behavior, not a captured Docker log. Show the outcome first and hold back the actual missing line until students inspect the next slide. The execution phase is when the report tries to open the JSON.</p>
+<p><strong>Timing:</strong> 2 minutes, including a prediction.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -994,7 +1119,11 @@ Illustrated expected outcomes · not an execution log
 <span id="cb16-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"report.py"</span>, <span class="st">"pipeline.py"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Which <strong>one line</strong> would you add? Do not change Python or tests.</p>
 <aside class="notes">
-<p>2 minutes. Pairs inspect Dockerfile.broken. Ask whether changing CMD or installing packages could supply a JSON file. Expected repair COPY data/ data/. Hold the answer until the activity attempt.</p>
+<p><strong>Say:</strong> “Now inspect <code>Dockerfile.broken</code>. It selects Python, installs requirements, and copies the <code>.py</code> files. But we know the report expects a JSON file under <code>data/raw/</code>. Which one line would you add before <code>CMD</code>?” Let pairs look at the actual file and discuss rather than supplying the answer immediately.</p>
+<p><strong>Ask:</strong> “Could changing <code>CMD</code>, installing another Python package, or fetching live World Bank data repair the packaging contract?” No. The frozen input belongs in the image.</p>
+<p><strong>Expected:</strong> Students identify <code>COPY data/ data/</code> but perform the actual repair in the next activity.</p>
+<p><strong>Remarks:</strong> Avoid projecting the complete reference Dockerfile or the repaired image before students attempt the diagnosis. No code edits on this slide; students will edit in Activity D.</p>
+<p><strong>Timing:</strong> 2 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1022,7 +1151,20 @@ Illustrated expected outcomes · not an execution log
 <p><strong>Expected</strong> Broken: missing-data <code>FileNotFoundError</code>; fixed: report, <code>14/14</code>, <code>PRECISION PASS</code>.</p>
 <p><strong>If blocked</strong> Compare <code>Dockerfile.reference</code>; pair or explain supplied outputs.</p>
 <aside class="notes">
-<p>6 minutes. Use cached layers; 2 minutes failure, 1 repair, 2 verify, 1 explanation. The error path is /app/data/raw/population-2023-2024.json. Build succeeds first; if it fails for a registry/network reason that is not evidence of the intended defect. No mounts. Keep broken tag distinct from fixed. Do not accept a local check in place of the final two container checks.</p>
+<p><strong>Say:</strong> “First prove the defect using the deliberately broken recipe. Building should succeed, and running should fail because the image has no JSON. Then add the smallest packaging fix, rebuild under a new tag, and run the report and both checks inside that repaired image.”</p>
+<p><strong>Do, before editing <code>Dockerfile.broken</code>:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile.broken <span class="at">-t</span> dcm-w10-broken .</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10-broken</span></code></pre></div>
+<p><strong>Expected:</strong> A runtime <code>FileNotFoundError</code> for <code>/app/data/raw/population-2023-2024.json</code>. Add this line before <code>CMD</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> data/ data/</span></code></pre></div>
+<p><strong>Do, after editing:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile.broken <span class="at">-t</span> dcm-w10-fixed .</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10-fixed</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10-fixed python checks.py pipeline.py</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> dcm-w10-fixed python my-check.py pipeline.py</span></code></pre></div>
+<p><strong>Expected:</strong> Three report rows, <code>BASIC: 14/14</code>, <code>PRECISION PASS</code>.</p>
+<p><strong>Remarks:</strong> Two minutes to observe the failure, one to repair, two to verify, one to explain. Keep broken and fixed tags distinct. An unrelated registry or network error during build is not evidence of the intended missing-data defect. Do not use a local test or bind mount to substitute for checks on the repaired image.</p>
+<p><strong>Timing:</strong> 6 minutes, high priority.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1091,7 +1233,11 @@ Verify the repaired image · same commands as Activity D
 </div>
 </div>
 <aside class="notes">
-<p>2 minutes. This slide follows Activity D; do not jump here before students attempt the repair. First ask what changed. Reveal index 0: COPY data/ data/, followed by rebuild; Python code, packages and assertions stayed the same. The package illustration now contains the frozen JSON; data/provenance.json and fixtures are copied with data/. Point to the same three commands used during the activity. Reveal index 1 to distinguish the claims: build success means instructions completed, successful execution means this report ran, verified behavior needs the actual basic and independent precision checks. Each claim needs its own evidence, and checks establish only their specified scope. Do not claim the illustration is a Docker execution log. Keep the original two-minute allocation.</p>
+<p><strong>Say:</strong> “We added one COPY instruction and rebuilt the image. Python, our code, and the checks stayed the same. The repaired image now contains the frozen JSON and provenance, so the program can open its input.” Reveal the packaging fix after students explain it.</p>
+<p><strong>Ask:</strong> “What did the green build prove? What did running the report prove? What did both checks add?”</p>
+<p><strong>Expected:</strong> Build success means Docker completed the recipe; execution success means this report ran; independent verification supports the particular behavior specified in the checks. Reveal the three-way distinction only after hearing student answers.</p>
+<p><strong>Remarks:</strong> Refer to the same three <code>dcm-w10-fixed</code> run commands shown on the slide. The illustration is not an execution log. Tests have limited scope; they do not prove every imaginable input or environment. Do not skip this explanation after the activity.</p>
+<p><strong>Timing:</strong> 2 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1114,7 +1260,11 @@ Verify the repaired image · same commands as Activity D
 <p>A plausible Dockerfile is a proposal. Executed checks are evidence; even those checks have a stated scope.</p>
 </div>
 <aside class="notes">
-<p>3 minutes. No account or live AI request required. Discuss an answer that suggests weakening a test or fetching current API data: reject because it changes the contract. This is AI-assisted packaging with human-owned acceptance criteria, continuing Week 9.</p>
+<p><strong>Say:</strong> “Suppose you ask an AI coding assistant to repair this. A useful prompt describes the specific error path and sets boundaries: make the smallest Dockerfile change, preserve reporting code and data, and explain which files will be included. The assistant can propose an edit, but we still decide whether to accept it.”</p>
+<p><strong>Ask:</strong> “What if the assistant suggests deleting the failing test or downloading fresh data?” Reject that proposal: it changes the behavior or input contract rather than fixing packaging.</p>
+<p><strong>Do, conceptually:</strong> Inspect the diff, rebuild, run the report, and run both checks inside the repaired image. No live account or AI request required.</p>
+<p><strong>Remarks:</strong> Connect this to Week 9’s supervised refactor: a plausible explanation is not independent acceptance evidence. Mention that even passing checks verify only their stated scope.</p>
+<p><strong>Timing:</strong> 3 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1161,7 +1311,10 @@ Verify the repaired image · same commands as Activity D
 </table>
 <p><strong>Today’s priority:</strong> complete the evidence sequence, not individual installation repair.</p>
 <aside class="notes">
-<p>2 minutes. Rapid retrieval; ask one student per row before showing corresponding action verbally. Supplied-output analysis is a valid participation mode, but must not be labelled successful execution.</p>
+<p><strong>Say:</strong> “Let’s finish with four situations. For each, tell me the very next action you would take. If local Python says pandas is missing, what do you check? If Docker cannot connect to its daemon, what do you check? If an image builds but the JSON is missing, where do you look? If the report looks right but the precision check fails, what do you inspect?”</p>
+<p><strong>Expected:</strong> Check the Python executable and install requirements into it; start the Docker engine or pair; inspect <code>COPY data/ data/</code> and rebuild; inspect the calculation contract without weakening the assertion.</p>
+<p><strong>Remarks:</strong> Use one student response per row and keep answers short. If someone used the supplied-output fallback, accept the diagnosis but distinguish analysis from their own successful execution. Avoid troubleshooting individual installations here.</p>
+<p><strong>Timing:</strong> 2 minutes, rapid retrieval.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1188,7 +1341,11 @@ Verify the repaired image · same commands as Activity D
 <p>Keep code, frozen input, provenance and independent checks together.</p>
 </div>
 <aside class="notes">
-<p>4 minutes. 2 minutes pair explanation, 1 minute collect answers, 1 minute close/recovery. Expected: create/select venv then pip install -r; build image/run container; missing COPY; report plus 14/14 plus independent precision PASS in repaired tag. If behind schedule shorten this discussion by 2 minutes, never omit repaired-image verification.</p>
+<p><strong>Say:</strong> “Before leaving, explain this workflow to someone who missed class. How would they recreate the Python packages? How does a Dockerfile lead to a running report? Why could a successful build still lead to a runtime failure? And what evidence would convince you that the repaired image works for this case?”</p>
+<p><strong>Expected:</strong> Create/select a <code>.venv</code> and install <code>requirements.txt</code>; build the Docker image and run a container; missing data can remain unnoticed until runtime; verify the repaired tag by running the report, the 14 basic checks and the independent precision check inside it.</p>
+<p><strong>Close:</strong> “A Git repository gives your colleague the code and history. A dependency recipe or Dockerfile helps recreate execution. Keep frozen inputs, provenance and independent checks alongside both.”</p>
+<p><strong>Remarks:</strong> Two minutes for pairs, one to collect responses, one to close. If behind schedule, shorten the pair exchange, never the repaired-image verification.</p>
+<p><strong>Timing:</strong> 4 minutes. Block 2 ends at 45 minutes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
