@@ -33,7 +33,7 @@
   },
 
   "_README_published": "Which sessions' material students can reach. A session's slides, links and notes appear ONLY if its id is listed in `published`; every other session shows \"not published yet\". tools/prune.py also keeps unlisted files out of the deployed site, so a direct URL cannot reach them either. To open a session: add its id here, commit, push.",
-  "published": ["introduction", "reproducibility-git", "code-literacy-1", "code-literacy-2", "responsible-ai", "sql", "apis-json", "software-engineering", "environments-docker"],
+  "published": ["introduction", "reproducibility-git", "code-literacy-1", "code-literacy-2", "responsible-ai", "sql", "apis-json", "software-engineering", "environments-docker", "applications"],
 
   "moodle": {
     "note": "Moodle remains the official UNIL space for announcements, submissions, grades and the course forum. This public site carries the syllabus, schedule, slides and materials.",
@@ -324,7 +324,7 @@
         { "label": "Interactive slides (runs Python in your browser)", "url": "slides/lecture08/live/lecture08.html" },
         { "label": "Student pack (Python and Docker)", "url": "slides/lecture08/practice/student-pack.zip" }
       ],
-      "prep": "Allow 15\u201325 minutes before class, with internet: extract the student pack, install Python 3.14 and Docker Desktop, start Docker until `docker version` shows a Server, then run `docker build -t dcm-w10 .` once. Pulling the base image is not enough \u2014 the build is what installs the dependencies.",
+      "prep": "Allow 15\u201325 minutes before class, with internet: extract the student pack, install Python 3.14 and Docker Desktop, start Docker and wait until its engine reports a Server, then run the image build once. Pulling the base image is not enough \u2014 the build is what installs the dependencies.",
       "page": true
     },
     {
@@ -335,6 +335,13 @@
       "group": "production",
       "kind": "lecture",
       "summary": "Turning a workflow into a small application someone else can use, and the launch of the group project.",
+      "slides": "slides/lecture09/lecture09-applications.html",
+      "practiceGuide": "applications",
+      "materials": [
+        { "label": "Student pack (Streamlit app and frozen pipeline)", "url": "slides/lecture09/practice/student-pack.zip" },
+        { "label": "Project canvas (one page, print one per group)", "url": "slides/lecture09/practice/project-canvas.pdf" }
+      ],
+      "prep": "Install before class, with internet: extract the student pack, create a virtual environment and install requirements.txt (Streamlit is a much larger download than anything earlier in the course), then start the app once to confirm it opens at localhost:8501.",
       "page": true
     },
     {
